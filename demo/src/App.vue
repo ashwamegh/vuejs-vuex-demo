@@ -1,64 +1,57 @@
 <template>
-  <div id="app">
-    <img class="logo" src="./assets/logo.png">
-    <hello></hello>
-    <p>
-      Welcome to your Vue.js app!
-    </p>
-    <p>
-      To get a better understanding of how this boilerplate works, check out
-      <a href="http://vuejs-templates.github.io/webpack" target="_blank">its documentation</a>.
-      It is also recommended to go through the docs for
-      <a href="http://webpack.github.io/" target="_blank">Webpack</a> and
-      <a href="http://vuejs.github.io/vue-loader/" target="_blank">vue-loader</a>.
-      If you have any issues with the setup, please file an issue at this boilerplate's
-      <a href="https://github.com/vuejs-templates/webpack" target="_blank">repository</a>.
-    </p>
-    <p>
-      You may also want to checkout
-      <a href="https://github.com/vuejs/vue-router/" target="_blank">vue-router</a> for routing and
-      <a href="https://github.com/vuejs/vuex/" target="_blank">vuex</a> for state management.
-    </p>
+  <div class="container-fluid">
+    <product-list :products="products"></product-list>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import ProductList from './components/admin/ProductList'
 
 export default {
   components: {
-    Hello
+    ProductList
+  },
+  data () {
+    return {
+      // note: changing this line won't causes changes
+      // with hot-reload because the reloaded component
+      // preserves its current state and we are modifying
+      // its initial state.
+      products: [
+        {
+          name: 'Product Item 1',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, culpa.',
+          price: '99'
+        },
+        {
+          name: 'Product Item 2',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, culpa.',
+          price: '99'
+        },
+        {
+          name: 'Product Item 3',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, culpa.',
+          price: '99'
+        },
+        {
+          name: 'Product Item 4',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, culpa.',
+          price: '99'
+        },
+        {
+          name: 'Product Item 5',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, culpa.',
+          price: '99'
+        }
+      ]
+    }
   }
 }
 </script>
 
 <style>
-html {
-  height: 100%;
-}
-
+html,
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
-}
-
-#app {
-  color: #2c3e50;
-  margin-top: -100px;
-  max-width: 600px;
-  font-family: Source Sans Pro, Helvetica, sans-serif;
-  text-align: center;
-}
-
-#app a {
-  color: #42b983;
-  text-decoration: none;
-}
-
-.logo {
-  width: 100px;
-  height: 100px
 }
 </style>
