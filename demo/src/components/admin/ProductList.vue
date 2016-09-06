@@ -12,6 +12,7 @@
         <td>{{product.name}}</td>
         <td>{{product.description}}</td>
         <td>{{product.price}}:- SEK</td>
+        <td><a href="#" @click="removeProduct(product)">Remove</a></td>
       </tr>
     </tbody>
   </table>
@@ -19,7 +20,12 @@
 
 <script>
 export default {
-  props: ['products']
+  props: ['products'],
+  methods: {
+    removeProduct (product) {
+      this.$dispatch('remove-product', product)
+    }
+  }
 }
 </script>
 

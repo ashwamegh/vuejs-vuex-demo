@@ -4,7 +4,7 @@
   </header>
   <main class="container-fluid">
     <add-product @add-product="addProductToListing"></add-product>
-    <product-list :products="products"></product-list>
+    <product-list :products="products" @remove-product="removeProductFromListing"></product-list>
   </main>
 </template>
 
@@ -57,6 +57,9 @@ export default {
   methods: {
     addProductToListing (product) {
       this.products.push(product)
+    },
+    removeProductFromListing (product) {
+      this.products.$remove(product)
     }
   }
 }
