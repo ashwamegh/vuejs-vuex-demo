@@ -3,6 +3,7 @@
     <app-nav></app-nav>
   </header>
   <main class="container-fluid">
+    <add-product @add-product="addProductToListing"></add-product>
     <product-list :products="products"></product-list>
   </main>
 </template>
@@ -10,11 +11,13 @@
 <script>
 import AppNav from './components/AppNav'
 import ProductList from './components/admin/ProductList'
+import AddProduct from './components/admin/AddProduct'
 
 export default {
   components: {
     AppNav,
-    ProductList
+    ProductList,
+    AddProduct
   },
   data () {
     return {
@@ -49,6 +52,11 @@ export default {
           price: '99'
         }
       ]
+    }
+  },
+  methods: {
+    addProductToListing (product) {
+      this.products.push(product)
     }
   }
 }
