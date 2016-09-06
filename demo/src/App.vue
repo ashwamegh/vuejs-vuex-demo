@@ -1,14 +1,19 @@
 <template>
-  <div class="container-fluid">
+  <header class="app-header">
+    <app-nav></app-nav>
+  </header>
+  <main class="container-fluid">
     <product-list :products="products"></product-list>
-  </div>
+  </main>
 </template>
 
 <script>
+import AppNav from './components/AppNav'
 import ProductList from './components/admin/ProductList'
 
 export default {
   components: {
+    AppNav,
     ProductList
   },
   data () {
@@ -53,5 +58,9 @@ export default {
 html,
 body {
   height: 100%;
+}
+
+.app-header {
+  margin-bottom: 40px;
 }
 </style>
