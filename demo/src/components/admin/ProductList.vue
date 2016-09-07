@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="product in products" @click.prevent.stop="editProduct(product)">
+      <tr v-for="product in products" track-by="id" @click.prevent.stop="editProduct(product)">
         <td>{{product.name}}</td>
         <td>{{product.description}}</td>
         <td>{{product.price}}:- SEK</td>
@@ -20,15 +20,19 @@
 
 <script>
 import { getProducts } from '../../vuex/getters'
-import { removeProduct, setProductInForm } from '../../vuex/actions'
+import { removeProduct, setProductInForm, fetchProducts } from '../../vuex/actions'
 
 export default {
+  compiled () {
+    this.fetchProducts()
+  },
   vuex: {
     getters: {
       products: getProducts
     },
     actions: {
       removeProduct,
+      fetchProducts,
       editProduct: setProductInForm
     }
   }

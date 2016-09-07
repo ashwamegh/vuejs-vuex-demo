@@ -47,7 +47,10 @@ export default {
       }
 
       if (this.productInForm.id) {
-        this.editProduct(this.productInForm.id, product)
+        this.editProduct({
+          id: this.productInForm.id,
+          ...product
+        })
       } else {
         this.addProduct(product)
       }
