@@ -3,27 +3,64 @@
     <fieldset class="col-md-4">
       <div class="form-group">
         <label for="productName">Product name</label>
-        <input type="text" v-model="product.name" class="form-control" id="productName" placeholder="Enter product name">
+        <input type="text" v-model="name" class="form-control" id="productName" placeholder="Enter product name">
       </div>
       <div class="form-group">
         <label for="productDescription">Product description</label>
-        <textarea class="form-control" v-model="product.description" id="productDescription" rows="3" placeholder="Enter description"></textarea>
+        <textarea class="form-control" v-model="description" id="productDescription" rows="3" placeholder="Enter description"></textarea>
       </div>
       <div class="form-group">
         <label for="price"></label>
-        <input type="number" v-model="product.price" class="form-control" id="price" placeholder="Enter Price" number>
+        <input type="number" v-model="price" class="form-control" id="price" placeholder="Enter Price" number>
       </div>
-      <button type="submit" v-on:click.prevent="saveProduct" class="btn btn-primary">Save product</button>
+      <button type="submit" v-on:click.prevent="onSubmit" class="btn btn-primary">{{productInForm.id ? 'Edit' : 'Add'}} product</button>
+      <button type="button" v-if="productInForm.id" v-on:click.prevent="resetProductInForm" class="btn btn-default">Cancel</button>
     </form>
   </fieldset>
 </template>
 
 <script>
+import { addProduct, editProduct, resetProductInForm } from '../../vuex/actions'
+import { getProductInForm } from '../../vuex/getters'
+
 export default {
-  props: ['product'],
+  data () {
+    return {
+      name: '',
+      description: '',
+      price: ''
+    }
+  },
+  ready () {
+    this.$watch('productInForm', () => {
+      this.name = this.productInForm.name
+      this.description = this.productInForm.description
+      this.price = this.productInForm.price
+    })
+  },
   methods: {
-    saveProduct () {
-      this.$dispatch('save-product', this.product)
+    onSubmit () {
+      const product = {
+        name: this.name,
+        description: this.description,
+        price: this.price
+      }
+
+      if (this.productInForm.id) {
+        this.editProduct(this.productInForm.id, product)
+      } else {
+        this.addProduct(product)
+      }
+    }
+  },
+  vuex: {
+    actions: {
+      addProduct,
+      editProduct,
+      resetProductInForm
+    },
+    getters: {
+      productInForm: getProductInForm
     }
   }
 }

@@ -19,14 +19,17 @@
 </template>
 
 <script>
+import { getProducts } from '../../vuex/getters'
+import { removeProduct, setProductInForm } from '../../vuex/actions'
+
 export default {
-  props: ['products'],
-  methods: {
-    removeProduct (product) {
-      this.$dispatch('remove-product', product)
+  vuex: {
+    getters: {
+      products: getProducts
     },
-    editProduct (product) {
-      this.$dispatch('edit-product', product)
+    actions: {
+      removeProduct,
+      editProduct: setProductInForm
     }
   }
 }
