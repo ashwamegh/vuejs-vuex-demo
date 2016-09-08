@@ -1,6 +1,14 @@
 <template lang="html">
   <form class="row">
-    <fieldset class="col-md-4">
+    <fieldset class="col-md-6">
+      <div v-if="formErrors" class="alert alert-danger" role="alert">
+        <strong>Woops!</strong> Fix the errors and try submitting again.
+        <p>
+          <ul v-for="error in formErrors">
+            <li>{{error.title}}</li>
+          </ul>
+        </p>
+      </div>
       <div class="form-group">
         <label for="productName">Product name</label>
         <input type="text" v-model="name" class="form-control" id="productName" placeholder="Enter product name">
@@ -21,7 +29,7 @@
 
 <script>
 import { addProduct, editProduct, resetProductInForm } from '../../vuex/actions'
-import { getProductInForm } from '../../vuex/getters'
+import { getProductInForm, getFormErrors } from '../../vuex/getters'
 
 export default {
   data () {
@@ -63,7 +71,8 @@ export default {
       resetProductInForm
     },
     getters: {
-      productInForm: getProductInForm
+      productInForm: getProductInForm,
+      formErrors: getFormErrors
     }
   }
 }

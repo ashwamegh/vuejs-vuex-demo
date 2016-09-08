@@ -3,20 +3,22 @@ import { http } from 'vue'
 export function fetchProducts ({ dispatch }) {
   http.get('http://localhost:3000/products')
     .then((response) => {
-      dispatch('FETCH_PRODUCTS_SUCCESS', response.body)
+      dispatch('FETCH_PRODUCTS_SUCCESS', response.body.data)
     })
 }
 
 export function addProduct ({ dispatch }, newProduct) {
   http.post('http://localhost:3000/products', newProduct)
-    .then((response) => dispatch('CREATE_PRODUCT_SUCCESS', response.body))
+    .then((response) => dispatch('CREATE_PRODUCT_SUCCESS', response.body.data))
     .then(() => resetProductInForm({ dispatch }))
+    .catch((response) => dispatch('CREATE_PRODUCT_FAILED', response.body.errors))
 }
 
 export function editProduct ({ dispatch }, product) {
   http.put(`http://localhost:3000/products/${product.id}`, product)
-    .then((response) => dispatch('UPDATE_PRODUCT_SUCCESS', response.body))
+    .then((response) => dispatch('UPDATE_PRODUCT_SUCCESS', response.body.data))
     .then(() => resetProductInForm({ dispatch }))
+    .catch((response) => dispatch('UPDATE_PRODUCT_FAILED', response.body.errors))
 }
 
 export function removeProduct ({ dispatch }, product) {
@@ -29,9 +31,5 @@ export function setProductInForm ({ dispatch }, product) {
 }
 
 export function resetProductInForm ({ dispatch }) {
-  dispatch('SET_PRODUCT_IN_FORM', {
-    name: '',
-    description: '',
-    price: 0
-  })
+  dispatch('RESET_PRODUCT_IN_FORM')
 }

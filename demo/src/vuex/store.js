@@ -8,8 +8,9 @@ const initialState = {
   productInForm: {
     name: '',
     description: '',
-    price: 0
+    price: null
   },
+  formErrors: null,
   products: []
 }
 
@@ -26,6 +27,14 @@ const mutations = {
     ]
   },
 
+  CREATE_PRODUCT_FAILED (state, errors) {
+    state.formErrors = errors
+  },
+
+  UPDATE_PRODUCT_FAILED (state, errors) {
+    state.formErrors = errors
+  },
+
   UPDATE_PRODUCT_SUCCESS (state, product) {
     const index = state.products.findIndex(p => p.id === product.id)
     state.products.$set(index, product)
@@ -33,6 +42,10 @@ const mutations = {
 
   SET_PRODUCT_IN_FORM (state, product) {
     state.productInForm = product
+  },
+
+  RESET_PRODUCT_IN_FORM (state) {
+    state.productInForm = initialState.productInForm
   },
 
   DELETE_PRODUCT_SUCCESS (state, productId) {
