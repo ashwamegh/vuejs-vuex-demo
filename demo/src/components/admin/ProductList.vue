@@ -2,13 +2,16 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th></th>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="product in products" track-by="id" @click.prevent.stop="editProduct(product)">
+        <td><img v-bind:src="product.imageUrl" alt="" /></td>
         <td>{{product.name}}</td>
         <td>{{product.description}}</td>
         <td>{{product.price}}:- SEK</td>

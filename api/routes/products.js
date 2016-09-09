@@ -1,7 +1,11 @@
 const Joi = require('joi');
+const sharp = require('sharp');
 const Guid = require('guid');
+const multer = require('multer');
 const router = require('express').Router;
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 const productsApi = router();
 
 // Create some initial products
@@ -13,16 +17,48 @@ const inMemoryProducts = new Array(5).fill(undefined).reduce((memo, value, index
     id,
     name: `Product Item ${index}`,
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, culpa.',
+    imageUrl: 'http://localhost:3000/uploads/jayway_logo.png',
+    imageName: 'jayway_logo.png',
     price: 99,
   };
 
   return products;
 }, {});
 
+// dest: `${__dirname}/../public/uploads`
+// Upload product image and assign it to product, declare before product update
+// so it gets dibs on the route matching
+productsApi.put('/upload', upload.single('product_image'), (req, res) => {
+  const productId = req.body.product_id;
+  sharp(req.file.buffer)
+    .resize(200, 200)
+    .crop(sharp.strategy.entropy)
+    .toFile(`${__dirname}/../public/uploads/${productId}`, (err) => {
+      if (err) {
+        console.error('woops', err);
+      }
+
+      inMemoryProducts[productId].imageUrl = `http://localhost:3000/uploads/${productId}`;
+      inMemoryProducts[productId].imageName = req.file.originalname;
+
+      res.status(201);
+      res.send({
+        data: req.file.originalname,
+      });
+    });
+});
+
+
 // Get all products
 productsApi.get('/', (req, res) => {
   res.status(200); // 200 OK
   res.json({ data: Object.keys(inMemoryProducts).map((key) => inMemoryProducts[key]) });
+});
+
+// Get one product
+productsApi.get('/:productId', (req, res) => {
+  res.status(200); // 200 OK
+  res.json({ data: inMemoryProducts[req.params.productId] });
 });
 
 // Create products
@@ -53,6 +89,8 @@ productsApi.post('/', (req, res) => {
 
     const newProduct = Object.assign({
       id: Guid.raw(),
+      imageUrl: '',
+      imageName: '',
     }, validatedData);
 
     inMemoryProducts[newProduct.id] = newProduct;
@@ -103,10 +141,13 @@ productsApi.put('/:productId', (req, res) => {
       return;
     }
 
-    inMemoryProducts[validatedData.id] = validatedData;
+    inMemoryProducts[validatedData.id] = Object.assign(
+      inMemoryProducts[validatedData.id],
+      validatedData
+    );
 
     res.status(201); // 201 Created
-    res.json({ data: validatedData });
+    res.json({ data: inMemoryProducts[validatedData.id] });
   });
 });
 

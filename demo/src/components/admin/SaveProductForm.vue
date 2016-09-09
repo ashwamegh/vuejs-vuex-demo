@@ -18,8 +18,16 @@
         <textarea class="form-control" v-model="description" id="productDescription" rows="3" placeholder="Enter description"></textarea>
       </div>
       <div class="form-group">
-        <label for="price"></label>
+        <label for="price">Price</label>
         <input type="number" v-model="price" class="form-control" id="price" placeholder="Enter Price" number>
+      </div>
+      <div class="form-group">
+        <label for="file">Product image</label>
+        <label class="custom-file">
+          <input type="file" name="product_image" @change="onImageChanged" accept=".png, .jpg" id="file" class="custom-file-input">
+          <span class="custom-file-control"></span>
+        </label>
+        <small class="form-text text-muted">{{selectedFileName}}</small>
       </div>
       <button type="submit" v-on:click.prevent="onSubmit" class="btn btn-primary">{{productInForm.id ? 'Edit' : 'Add'}} product</button>
       <button type="button" v-if="productInForm.id" v-on:click.prevent="resetProductInForm" class="btn btn-default">Cancel</button>
@@ -36,7 +44,9 @@ export default {
     return {
       name: '',
       description: '',
-      price: ''
+      price: '',
+      selectedFile: '',
+      selectedFileName: ''
     }
   },
   ready () {
@@ -44,9 +54,15 @@ export default {
       this.name = this.productInForm.name
       this.description = this.productInForm.description
       this.price = this.productInForm.price
+      this.selectedFile = undefined
+      this.selectedFileName = this.productInForm.imageName
     })
   },
   methods: {
+    onImageChanged (event) {
+      this.selectedFile = event.target.files[0]
+      this.selectedFileName = event.target.files[0].name
+    },
     onSubmit () {
       const product = {
         name: this.name,
@@ -58,9 +74,9 @@ export default {
         this.editProduct({
           id: this.productInForm.id,
           ...product
-        })
+        }, this.selectedFile)
       } else {
-        this.addProduct(product)
+        this.addProduct(product, this.selectedFile)
       }
     }
   },

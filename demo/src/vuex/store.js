@@ -8,13 +8,25 @@ const initialState = {
   productInForm: {
     name: '',
     description: '',
-    price: null
+    price: null,
+    imageUrl: '',
+    imageName: ''
   },
   formErrors: null,
   products: []
 }
 
 const mutations = {
+
+  FETCH_PRODUCT_SUCCESS (state, product) {
+    const index = state.products.findIndex(p => p.id === product.id)
+
+    if (index === -1) {
+      state.products.push(product)
+    } else {
+      state.products.$set(index, product)
+    }
+  },
 
   FETCH_PRODUCTS_SUCCESS (state, products) {
     state.products = products
@@ -45,7 +57,7 @@ const mutations = {
   },
 
   RESET_PRODUCT_IN_FORM (state) {
-    state.productInForm = initialState.productInForm
+    state.productInForm = Object.assign({}, initialState.productInForm)
   },
 
   DELETE_PRODUCT_SUCCESS (state, productId) {
@@ -55,7 +67,7 @@ const mutations = {
 }
 
 const Store = new Vuex.Store({
-  state: initialState,
+  state: Object.assign({}, initialState),
   mutations,
   strict: process.env.NODE_ENV !== 'production'
 })
