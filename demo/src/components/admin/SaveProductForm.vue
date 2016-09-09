@@ -1,6 +1,6 @@
 <template lang="html">
-  <form class="row">
-    <fieldset class="col-md-6">
+  <form>
+    <fieldset>
       <div v-if="formErrors" class="alert alert-danger" role="alert">
         <strong>Woops!</strong> Fix the errors and try submitting again.
         <p>
@@ -9,30 +9,38 @@
           </ul>
         </p>
       </div>
-      <div class="form-group">
-        <label for="productName">Product name</label>
-        <input type="text" v-model="name" class="form-control" id="productName" placeholder="Enter product name">
-      </div>
-      <div class="form-group">
-        <label for="productDescription">Product description</label>
-        <textarea class="form-control" v-model="description" id="productDescription" rows="3" placeholder="Enter description"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="price">Price</label>
-        <input type="number" v-model="price" class="form-control" id="price" placeholder="Enter Price" number>
-      </div>
-      <div class="form-group">
-        <label for="file">Product image</label>
-        <label class="custom-file">
-          <input type="file" name="product_image" @change="onImageChanged" accept=".png, .jpg" id="file" class="custom-file-input">
-          <span class="custom-file-control"></span>
-        </label>
-        <small class="form-text text-muted">{{selectedFileName}}</small>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="productName">Product name</label>
+            <input type="text" v-model="name" class="form-control" id="productName" placeholder="Enter product name">
+          </div>
+          <div class="form-group">
+            <label for="productDescription">Product description <small class="text-muted">(optional)</small></label>
+            <textarea class="form-control" v-model="description" id="productDescription" rows="3" maxlength="128" placeholder="Enter description"></textarea>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" v-model="price" class="form-control" id="price" placeholder="Enter Price" number>
+          </div>
+          <div class="form-group">
+            <label for="file">Product image <small class="text-muted">(optional)</small></label>
+            <br>
+            <label class="custom-file">
+              <input type="file" name="product_image" @change="onImageChanged" accept=".png, .jpg" id="file" class="custom-file-input">
+              <span class="custom-file-control"></span>
+            </label>
+            <small class="form-text text-muted">{{selectedFileName}}</small>
+          </div>
+        </div>
       </div>
       <button type="submit" v-on:click.prevent="onSubmit" class="btn btn-primary">{{productInForm.id ? 'Edit' : 'Add'}} product</button>
       <button type="button" v-if="productInForm.id" v-on:click.prevent="resetProductInForm" class="btn btn-default">Cancel</button>
-    </form>
-  </fieldset>
+    </fieldset>
+  </form>
 </template>
 
 <script>
