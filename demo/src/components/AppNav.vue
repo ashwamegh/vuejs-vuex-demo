@@ -1,6 +1,14 @@
 <template lang="html">
   <nav class="navbar navbar-full navbar-dark bg-inverse">
     <a class="navbar-brand" href="#">Jayway shop</a>
+    <ul class="nav navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" v-link="{ path: '/' }" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" v-link="{ path: '/manage-products' }" href="#">Manage Products</a>
+      </li>
+    </ul>
   </nav>
 </template>
 
@@ -14,5 +22,5 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 </style>

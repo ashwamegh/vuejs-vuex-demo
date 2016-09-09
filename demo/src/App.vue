@@ -3,21 +3,18 @@
     <app-nav></app-nav>
   </header>
   <main class="container-fluid">
-    <save-product-form></save-product-form>
-    <product-list></product-list>
+    <router-view></router-view>
   </main>
 </template>
 
 <script>
+import store from './vuex/store'
 import AppNav from './components/AppNav'
-import ProductList from './components/admin/ProductList'
-import SaveProductForm from './components/admin/SaveProductForm'
 
 export default {
+  store,
   components: {
-    AppNav,
-    ProductList,
-    SaveProductForm
+    AppNav
   }
 }
 </script>
