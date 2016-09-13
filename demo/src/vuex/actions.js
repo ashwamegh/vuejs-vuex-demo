@@ -35,9 +35,14 @@ export function editProduct ({ dispatch }, product, image) {
     .catch((response) => dispatch('UPDATE_PRODUCT_FAILED', response.body.errors))
 }
 
-export function removeProduct ({ dispatch }, product) {
+export function removeProduct ({ state, dispatch }, product) {
   http.delete(`http://localhost:3000/products/${product.id}`)
     .then((response) => dispatch('DELETE_PRODUCT_SUCCESS', product.id))
+    .then(() => {
+      if (product.id === state.productInForm.id) {
+        resetProductInForm({ dispatch })
+      }
+    })
 }
 
 export function setProductInForm ({ dispatch }, product) {
