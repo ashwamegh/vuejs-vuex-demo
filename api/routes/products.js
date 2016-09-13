@@ -4,26 +4,14 @@ const Guid = require('guid');
 const multer = require('multer');
 const router = require('express').Router;
 
+const initialData = require('../data/products');
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const productsApi = router();
 
 // Create some initial products
-const inMemoryProducts = new Array(5).fill(undefined).reduce((memo, value, index) => {
-  const products = memo;
-  const id = Guid.raw();
-
-  products[id] = {
-    id,
-    name: `Product Item ${index}`,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, culpa.',
-    imageUrl: 'http://localhost:3000/uploads/jayway_logo.png',
-    imageName: 'jayway_logo.png',
-    price: 99,
-  };
-
-  return products;
-}, {});
+const inMemoryProducts = initialData;
 
 // dest: `${__dirname}/../public/uploads`
 // Upload product image and assign it to product, declare before product update
