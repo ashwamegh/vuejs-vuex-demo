@@ -13,7 +13,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="productName">Product name</label>
-            <input type="text" v-model="name" class="form-control" id="productName" placeholder="Enter product name">
+            <input type="text" v-model="name" class="form-control" id="productName" maxlength="32" placeholder="Enter product name">
           </div>
           <div class="form-group">
             <label for="productDescription">Product description <small class="text-muted">(optional)</small></label>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <button type="submit" v-on:click.prevent="onSubmit" class="btn btn-primary">{{productInForm.id ? 'Edit' : 'Add'}} product</button>
-      <button type="button" v-if="productInForm.id" v-on:click.prevent="resetProductInForm" class="btn btn-default">Cancel</button>
+      <button type="button" v-if="productInForm.id" v-on:click.prevent="resetProductInForm" class="btn btn-secondary">Cancel</button>
     </fieldset>
   </form>
 </template>
@@ -102,7 +102,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 form {
   margin-bottom: 20px;
 }

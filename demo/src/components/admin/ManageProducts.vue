@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import ProductList from './/ProductList'
-import SaveProductForm from './/SaveProductForm'
+import ProductList from './ProductList'
+import SaveProductForm from './SaveProductForm'
 
 export default {
   components: {

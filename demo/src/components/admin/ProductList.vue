@@ -10,8 +10,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="product in products" track-by="id" @click.prevent.stop="editProduct(product)">
-        <td class="product-image-col"><img class="product-image" v-bind:src="product.imageUrl" alt="" /></td>
+      <tr class="product-row" v-if="products" v-for="product in products" track-by="id" @click.prevent.stop="editProduct(product)">
+        <td class="product-image-col">
+          <img v-if="product.imageUrl" v-bind:src="product.imageUrl" alt="Product image" class="product-image">
+          <img v-else src="../../assets/product_placeholder.svg" alt="Product image" class="product-image">
+        </td>
         <td class="product-name-col">{{product.name}}</td>
         <td class="product-desc-col hidden-sm-down">{{product.description}}</td>
         <td class="product-price-col">{{product.price}}:- SEK</td>
@@ -43,8 +46,13 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+.product-row {
+  cursor: pointer;
+}
+
 .product-image {
+  background-color: #fff;
   height: 48px;
 }
 
@@ -63,26 +71,18 @@ export default {
 .product-image-col {
   text-align: center;
   width: 72px;
-  max-width: 72px;
 }
 
 .product-name-col {
-  width: 20ch;
-  min-width: 20ch;
-}
-
-.product-desc-col {
-  width: 100%;
+  min-width: 200px;
 }
 
 .product-price-col {
-  width: 10ch;
-  max-width: 10ch;
+  width: 110px;
 }
 
 .product-delete-col {
-  width: 8ch;
-  max-width: 8ch;
+  width: 80px;
   text-align: right;
 }
 

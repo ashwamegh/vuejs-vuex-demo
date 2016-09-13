@@ -2,7 +2,7 @@
   <header class="app-header">
     <app-nav></app-nav>
   </header>
-  <main class="container-fluid">
+  <main class="container">
     <router-view></router-view>
   </main>
 </template>
@@ -19,13 +19,15 @@ export default {
 }
 </script>
 
-<style>
-html,
-body {
-  height: 100%;
-}
+<style lang="scss">
+// Import global styles
+@import "styles/style.scss";
+</style>
+
+<style lang="css" scoped>
 
 .app-header {
-  margin-bottom: 40px;
+  margin-bottom: 3rem;
 }
+
 </style>
