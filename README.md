@@ -1,1 +1,1 @@
-# vue-js-workshop
+# Jayway Vue.js workshop

@@ -1,0 +1,27 @@
+{
+  "name": "vue-js-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+		"docs:clean": "rimraf _book",
+		"docs:prepare": "gitbook install",
+		"docs:watch": "npm run docs:prepare && gitbook serve",
+		"docs:build": "npm run docs:prepare && rm -rf _book && gitbook build",
+		"docs:publish": "npm run docs:clean && npm run docs:build && cp _book && cd _book && git init && git commit --allow-empty -m 'Update docs' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'Update docs' && git push git@github.com:jayway/vue-js-workshop.git gh-pages --force",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayway/vue-js-workshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayway/vue-js-workshop/issues"
+  },
+  "homepage": "https://github.com/jayway/vue-js-workshop#readme",
+  "devDependencies": {
+    "gitbook-cli": "^2.3.0"
+  }
+}
