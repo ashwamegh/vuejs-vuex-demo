@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 
+import '../node_modules/bootstrap/dist/js/bootstrap'
+
 import App from './App'
 import ManageProducts from './components/admin/ManageProducts'
 import ProductListing from './components/ProductListing'
