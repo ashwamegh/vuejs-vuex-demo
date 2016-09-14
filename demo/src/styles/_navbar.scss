@@ -28,6 +28,21 @@
       height: 3px;
     }
   }
+
+  .dropdown-cart.open {
+    position: static;
+
+    .dropdown-menu {
+      display: table;
+      width: 100%;
+      max-width: 450px;
+    }
+  }
+
+  .tag {
+    border-radius: 25%;
+    vertical-align: text-bottom;    
+  }
 }
 
 @media (max-width: 543px) {

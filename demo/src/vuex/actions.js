@@ -53,6 +53,22 @@ export function resetProductInForm ({ dispatch }) {
   dispatch('RESET_PRODUCT_IN_FORM')
 }
 
+export function addToCart ({ state, dispatch }, product) {
+  const record = state.cart.products.find((p) => p.id === product.id)
+
+  if (!record || record.quantity < 10) {
+    dispatch('ADD_TO_CART', product)
+  }
+}
+
+export function removeFromCart ({ dispatch }, productId) {
+  dispatch('REMOVE_FROM_CART', productId)
+}
+
+export function subtractFromCart ({ state, dispatch }, productId) {
+  dispatch('SUBTRACT_FROM_CART', productId)
+}
+
 function uploadProductImage ({ dispatch }, image, productId) {
   var formData = new global.FormData()
 

@@ -12,14 +12,40 @@
         <a class="nav-item nav-link" v-link="{ path: '/home', exact: true, activeClass: 'active' }" href="#">Home</a>
         <a class="nav-item nav-link" v-link="{ path: '/manage-products', exact: true, activeClass: 'active' }" href="#">Manage Products</a>
       </div>
+      <div class="nav navbar-nav pull-sm-right">
+        <div class="nav-item dropdown dropdown-cart">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <span v-if="totalItems" class="tag tag-pill tag-primary">{{totalItems}}</span> Shopping cart
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <shopping-cart></shopping-cart>
+          </div>
+        </div>
+    </div>
     </div>
   </nav>
 </template>
 
 <script>
+import ShoppingCart from './ShoppingCart'
+import {getCartItems} from '../vuex/getters'
+
 export default {
+  components: {
+    ShoppingCart
+  },
   data () {
     return {
+    }
+  },
+  computed: {
+    totalItems () {
+      return this.inCart.reduce((sum, p) => sum + p.quantity, 0)
+    }
+  },
+  vuex: {
+    getters: {
+      inCart: getCartItems
     }
   }
 }

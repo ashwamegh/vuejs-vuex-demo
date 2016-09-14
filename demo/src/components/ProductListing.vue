@@ -8,7 +8,7 @@
         </figure>
         <div class="card-content">
           <aside class="card-overlay">
-            <button class="btn btn-outline-primary add-to-cart" type="button" name="button">Add to cart</button>
+            <button class="btn btn-outline-primary add-to-cart" @click.stop.prevent="addToCart(product)" type="button" name="button">Add to cart</button>
           </aside>
           <div class="card-block">
             <header class="product-info">
@@ -25,7 +25,7 @@
 
 <script>
 import { getProducts } from '../vuex/getters'
-import { fetchProducts } from '../vuex/actions'
+import { fetchProducts, addToCart } from '../vuex/actions'
 
 export default {
   compiled () {
@@ -36,7 +36,8 @@ export default {
       products: getProducts
     },
     actions: {
-      fetchProducts
+      fetchProducts,
+      addToCart
     }
   }
 }
@@ -57,12 +58,13 @@ export default {
   .title {
     flex-grow: 1;
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     font-weight: 500;
   }
 
   .price {
+    margin-left: .5rem;
     font-size: 1.25rem;
     font-weight: 700;
     flex-shrink: 0;
