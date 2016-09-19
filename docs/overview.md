@@ -1,0 +1,10 @@
+# Overview
+
+In this workshop you will learn how to build a shopping cart application in
+Vue.js. You will make every component from scratch but be provided with some styling and boilerplate for each step so that you can focus entirely on learning Vue.js.
+
+**You will learn how to**
+ * Build a web app from scratch with the Vue.js framework
+ * Use vue-router to route to different parts of your app
+ * Create a unidirectional flow with vuex to separate data and presentation
+ * Communicate with a backend REST API
