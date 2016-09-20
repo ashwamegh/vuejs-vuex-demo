@@ -20,5 +20,7 @@ export default {
 html,
 body {
   height: 100%;
+  max-width: 900px;
+  margin: 24px auto;
 }
 </style>
