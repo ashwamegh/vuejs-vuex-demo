@@ -6,7 +6,7 @@
 * [Creating your first Vue.js project](/docs/hello-world.md)
 * [Using vue-cli for quick project scaffolding](/docs/vue-cli.md)
 * [List products](/docs/list-products.md)
-* [Create products]()
+* [Create products](/docs/create-products.md)
 * [Update products]()
 * [Delete products]()
 * [Routing with vue-router]()
