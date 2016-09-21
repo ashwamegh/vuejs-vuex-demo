@@ -123,3 +123,10 @@ export default {
 ```
 
 Now open up the command line, run `npm run dev` from the project root, point your browser to http://localhost:8080 and watch your beautiful product list.
+
+---
+
+**Key to perfection**
+
+ * Create a `ManageProducts` component that includes the product-list and future
+   product related components.

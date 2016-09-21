@@ -203,3 +203,10 @@ export default {
 ```
 
 There you have it. Fire up your browser and test it out! Next up we are going to modify our SaveProductForm component so that we can update existing products.
+
+
+---
+
+**Key to perfection**
+
+ * Use [props validation](http://vuejs.org/guide/components.html#Prop-Validation) to validate your component properties.

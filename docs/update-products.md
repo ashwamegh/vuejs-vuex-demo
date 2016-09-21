@@ -105,8 +105,7 @@ That's it! Now you can create and update products!
 
 ---
 
-There are still things you can improve on but I leave that as an exercise for you.
-
+**Key to perfection**
  * Add a cancel button that is only visible when editing a product.
 
    **HINT!** Use the [`v-if`](https://vuejs.org/guide/conditional.html#v-if) directive to check for a product id and pass a `onCancel()`

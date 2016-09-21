@@ -8,3 +8,10 @@ Vue.js. You will make every component from scratch but be provided with some sty
  * Use vue-router to route to different parts of your app
  * Create a unidirectional flow with vuex to separate data and presentation
  * Communicate with a backend REST API
+
+---
+
+**Key to perfection**
+
+During the rest of this course there are several "**Key to perfection**" sections.
+These are assignments with hints, related to real world issues, that you could do on your own.
