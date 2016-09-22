@@ -1,16 +1,17 @@
 <template>
   <save-product-form
     :product="productInForm"
-    :on-submit="onFormSave"
-    :on-cancel="resetProductInForm"
+    v-on:submit="onFormSave"
+    v-on:cancel="resetProductInForm"
   ></save-product-form>
   <product-list
-    :on-edit="onEditClicked"
-    :products="products">
-  </product-list>
+    :products="products"
+    v-on:edit="onEditClicked"
+  ></product-list>
 </template>
 
 <script>
+import guid from 'guid';
 import ProductList from './ProductList';
 import SaveProductForm from './SaveProductForm';
 
@@ -20,7 +21,7 @@ const initialData = () => {
      id: null,
      name: '',
      description: '',
-     price: ''
+     price: null
    },
    products: [
      {
@@ -63,6 +64,7 @@ export default {
       if (index !== -1) {
         this.products.$set(index, product);
       } else {
+        product.id = guid.raw();
         this.products.push(product);
       }
 

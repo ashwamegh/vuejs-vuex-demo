@@ -20,21 +20,25 @@ product in the ProductList component.
 
 <script>
 export default {
-  props: ['products', 'onEdit']
+  props: ['products'],
+  methods: {
+    onEdit(product) {
+      this.$emit('edit', product)
+    }
+  }
 }
 </script>
 ```
 
-Since we changed the ProductList to a stateless component we are going to send in an
-`onEdit` function property that will be called when a table row is clicked.
+Since we changed the ProductList to a stateless component we have to bind an `onEdit` event handler to the custom `edit` event that will be called when a table row is clicked.
 
-To populate the form we need to implement an edit form handler.
+To populate the form we need to implement an edit form handler in the `ManageProducts` component.
 ```html
 <!-- src/components/ManageProducts.vue -->
 <template>
   ...
   <product-list
-    :on-edit="onEditClicked"
+    v-on:edit="onEditClicked"
     :products="products"
   >
   </product-list>
@@ -69,6 +73,7 @@ as well.
 <!-- src/components/ManageProducts.vue -->
 <script>
 ...
+import guid from 'guid';
 
 export default {
   ...
@@ -83,6 +88,8 @@ export default {
       if (index !== -1) {
         this.products.$set(index, product);
       } else {
+        // Create an ID using the third-party lib 'guid'
+        product.id = guid.raw();
         this.products.push(product);
       }
 
@@ -108,9 +115,13 @@ That's it! Now you can create and update products!
 **Key to perfection**
  * Add a cancel button that is only visible when editing a product.
 
-   **HINT!** Use the [`v-if`](https://vuejs.org/guide/conditional.html#v-if) directive to check for a product id and pass a `onCancel()`
-   function property down to the form component.
- * Validate the input.
+   **HINT!** Use the [`v-if`](https://vuejs.org/guide/conditional.html#v-if) directive to check for a product id and emit a `cancel`
+   event to the parent component that resets the form.
+ * Change the save button label to say either "Add product" or "Update product".
 
-   **HINT** use `$watch` in one of the [lifecycle methods](https://vuejs.org/guide/instance.html#Instance-Lifecycle) or add [computed properties](https://vuejs.org/guide/computed.html)
-   that contains an error if the input is invalid. Disable the save button if errors exist.
+   **HINT!** You could use the `v-if` directive here as well but since it's just a simple string that
+   should be changed a [ternary expression](http://vuejs.org/guide/syntax.html#JavaScript-Expressions) is probably more suitable.
+ * Add client-side validation
+
+ **HINT!** Create a `validate()` method that populates some internal `formError` state if there is  an error and call this method from the `onSubmit` handler before emitting a `submit` event. Also use [`$watch`](http://vuejs.org/api/#watch) to watch the `product.id` in one of the [lifecycle methods](https://vuejs.org/guide/instance.html#Instance-Lifecycle)
+   and reset the `formErrors` when it changes.

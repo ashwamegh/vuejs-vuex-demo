@@ -1,7 +1,7 @@
 <template>
   <save-product-form
     :product="productInForm"
-    :on-submit="onFormSave"
+    v-on:submit="onFormSave"
   ></save-product-form>
   <product-list
     :products="products">
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import guid from 'guid';
 import ProductList from './ProductList';
 import SaveProductForm from './SaveProductForm';
 
@@ -18,7 +19,7 @@ const initialData = () => {
      id: null,
      name: '',
      description: '',
-     price: ''
+     price: null
    },
    products: [
      {
@@ -53,7 +54,12 @@ export default {
   methods: {
     onFormSave() {
       // clone the productInForm object
-      const product = { ...this.productInForm };
+      const product = {
+        // Use the Object Spread operator to force JS to clone the object
+        ...this.productInForm
+      };
+      // Generate an id using the third-party lib 'guid'
+      product.id = guid.raw();
       // add it to the product list
       this.products.push(product);
       // reset the form

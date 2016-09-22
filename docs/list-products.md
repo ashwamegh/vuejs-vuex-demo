@@ -103,9 +103,9 @@ When scaffolding a webpack based vue.js project with vue-cli our main component 
 ```html
 <!-- src/App.vue -->
 <template>
-  <!-- use the product list component, when using a component in a template
-  vue.js expects the DOM element to be lowercased and dasherized. e.g.
-  ProductList -> <product-list></product-list> -->
+	<!-- when using a component in a template Vue.js expects the DOM element to be
+	lowercased and dasherized. e.g. ProductList -> product-list -->
+
   <product-list></product-list>
 </template>
 
@@ -128,5 +128,5 @@ Now open up the command line, run `npm run dev` from the project root, point you
 
 **Key to perfection**
 
- * Create a `ManageProducts` component that includes the product-list and future
+ * Create a `ManageProducts` component that includes the `ProductList` and future
    product related components.

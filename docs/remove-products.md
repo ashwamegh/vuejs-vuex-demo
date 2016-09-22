@@ -1,7 +1,7 @@
 # Remove products
 
 It wouldn't be a complete **CRUD** app without the Delete.
-This is an easy one! Just as before we need to pass a function property
+This is an easy one! Just as before we need to emit an event
 to the ProductList component that will be called when we click the remove link.
 
 In the `exercise-files/remove-products` folder, add the following to the `ProductList`
@@ -11,11 +11,11 @@ component.
 <!-- src/components/ProductList.vue -->
 <template>
   <table class="table table-hover product-table">
-		...
+    ...
     <tbody>
-      <tr v-for="product in products" track-by="id" @click.prevent="onEdit(product)">
-				...
-        <td><a href="#" @click.prevent.stop="onRemove(product)">remove</a></td>
+      <tr v-for="product in products" track-by="id" v-on:click.prevent="onEdit">
+        ...
+        <td><a href="#" v-on:click.prevent.stop="onRemove">remove</a></td>
       </tr>
     </tbody>
   </table>
@@ -23,14 +23,20 @@ component.
 
 <script>
 export default {
-  props: ['products', 'onEdit', 'onRemove']
+  props: ['products'],
+  methods: {
+    ...
+    onRemove(product) {
+      this.$emit('remove', product)
+    }
+  }
 }
 </script>
 
 ```
 
-Notice the `.stop` event modifier. This will stop event propagation by  internally
-calling the native method `event.stopPropagation()` so that the click event does
+Notice the `.stop` event modifier. This will stop event propagation by internally
+calling the native event method `event.stopPropagation()` so that the click event does
 not bubble down to the `<tr>` where we bound the `onEdit()` event handler.
 
 Now we need to implement our `onRemove` event handler in our `ManageProducts` component.
@@ -40,8 +46,8 @@ Now we need to implement our `onRemove` event handler in our `ManageProducts` co
 <template>
 	...
   <product-list
-    :on-edit="onEditClicked"
-    :on-remove="onRemoveClicked"
+    v-on:edit="onEditClicked"
+    v-on:remove="onRemoveClicked"
     :products="products">
   </product-list>
 </template>
@@ -54,6 +60,8 @@ export default {
 		...
     onRemoveClicked(product) {
       this.products.$remove(product);
+
+			this.resetProductInForm();
     }
   }
 }
@@ -64,7 +72,7 @@ export default {
 
 **Key to perfection**
 
- * Validate your new property with props validation.
+ * Only reset the form if the product to be removed is currently in it.
  * Handle an empty state.
 
 	 **HINT!** Use the `v-if` directive to check `products.length`

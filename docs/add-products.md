@@ -25,18 +25,18 @@ Then start of with the template
       <label for="price">Price</label>
       <input type="number" v-model="product.price" class="form-control" id="price" placeholder="Enter Price" number>
     </div>
-    <button type="submit" v-on:click.prevent="onSubmit(product)" class="btn btn-primary">Save product</button>
+    <button type="submit" v-on:click.prevent="onSubmit" class="btn btn-primary">Save product</button>
   </form>
 </template>
 ```
 
 It's just a very basic form with three text inputs and a save button. We are using two-way data binding between our product object and our text inputs so that our object is updated automatically as we type. This is accomplished via the [`v-model`](https://vuejs.org/guide/forms.html) directive.
 
-On the actual save button we are using the [`v-on`](https://vuejs.org/guide/events.html) directive to bind the `onSubmit()` method to a click event. We're also using the event modifier `.prevent` so we don't have to call `event.preventDefault()` from the `onSubmit()` handler to prevent default browser behavior when the button is clicked. We are not actually going to create the `onSubmit()` handler in this component since we are going to pass it in as a property.
+On the actual save button we are using the [`v-on`](https://vuejs.org/guide/events.html) directive to bind the `onSubmit()` method to a click event. We're also using the [event modifier](http://vuejs.org/guide/events.html#Event-Modifiers) `.prevent` so we don't have to call `event.preventDefault()` from the `onSubmit()` handler to prevent default browser behavior when the button is clicked.
 
 Before moving on we need to discuss how these two components will communicate with each other. Some possibilities are:
 
-1. Let `SaveProductForm` handle the form state, then use a publish/subscribe model to let the ProductList know when a product has been created.
+1. Let `SaveProductForm` handle the form state, then use a global event bus with a publish/subscribe model to let the ProductList know when a product has been created.
 2. Move the `SaveProductForm` component into the `ProductList` component and let the product list handle the state.
 3. Let the parent component handle the state and pass it as props.
 4. Implement a unidirectional flow and move state out of the components.
@@ -49,13 +49,18 @@ The actual component is not very complicated.
 <!-- src/components/SaveProductForm.vue  -->
 <script>
 export default {
-  props: ['product', 'onSubmit']
+  props: ['product'],
+  methods: {
+    onSubmit() {
+      this.$emit('submit', this.product);
+    }
+  }
 }
 </script>
 ```
 
-All we need to do is specify what properties that should be allowed to be passed
-to this component.
+To be able to pass a property to a component we need to specify what properties that should be allowed otherwise it would just be ignored.
+We are also defining an `onSubmit()` method that will be called when the save button is clicked. Since we are not actually going to handle the actual creation/update of a product in this component we are just going to emit a [custom event](http://vuejs.org/guide/components.html#Custom-Events) that parent components can listen to using the `this.$emit()` function.
 
 **NOTE!**
 If you really wan't to make sure that everything is correct Vue.js has something
@@ -68,7 +73,7 @@ Import and add our new component into the ManageProducts component.
 <template>
   <save-product-form
     :product="productInForm"
-    :on-submit="onFormSave"
+    v-on:submit="onFormSave"
   ></save-product-form>
   <product-list></product-list>
 </template>
@@ -83,7 +88,7 @@ const initialData = () => {
       id: null,
       name: '',
       description: '',
-      price: ''
+      price: null
     }  
   }
 }
@@ -102,8 +107,7 @@ export default {
 }
 </script>
 ```
-We introduced a couple of new concepts here. Note the addition of new attributes in the `<save-product-form>` elements. This is how you pass [props](http://vuejs.org/guide/components.html#Props) down to a component. Under the methods object we created a method `onFormSave()` that we are also passing down as the `on-submit` property. Remember how we bound the onSubmit property in the SaveProductForm template to the
-button click event?
+We introduced a couple of new concepts here. Note the addition of new attributes in the `<save-product-form>` elements. This is how you pass [props](http://vuejs.org/guide/components.html#Props) down to a component. Under the methods object we created a method `onFormSave()` that we bound to the custom `submit` event that is triggered by our `SaveProductForm` component.
 
 By now you should be able to test this out but we are not actually doing anything with the data, except logging it to the console. Before we can actually push our new product to the product list
 we need to refactor the ProductList component to a so called stateless component
@@ -188,7 +192,12 @@ export default {
   methods: {
     onFormSave() {
       // clone the productInForm object
-      const product = { ...this.productInForm };
+      const product = {
+        // Use the Object Spread operator to force JS to clone the object
+        ...this.productInForm
+      };
+      // Generate an id using the third-party lib 'guid'
+      product.id = guid.raw();
       // add it to the product list
       this.products.push(product);
       // reset the form

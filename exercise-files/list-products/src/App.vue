@@ -1,7 +1,8 @@
 <template>
-  <!-- use the product list component, when using a component in a template
-  vue.js expects the DOM element to be lowercased and dasherized. e.g.
-  ProductList -> <product-list></product-list> -->
+  <!-- when using a component in a template Vue.js expects the DOM element to be
+  lowercased and dasherized. e.g. ProductList -> product-list -->
+
+  <!-- use the <product-list> component here! -->
 </template>
 
 <script>
@@ -13,14 +14,3 @@ export default {
   }
 }
 </script>
-
-<style>
-@import '../node_modules/bootstrap/dist/css/bootstrap.css';
-
-html,
-body {
-  height: 100%;
-  max-width: 900px;
-  margin: 24px auto;
-}
-</style>

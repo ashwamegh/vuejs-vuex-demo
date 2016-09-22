@@ -13,5 +13,6 @@ Vue.js. You will make every component from scratch but be provided with some sty
 
 **Key to perfection**
 
-During the rest of this course there are several "**Key to perfection**" sections.
-These are assignments with hints, related to real world issues, that you could do on your own.
+During the rest of this workshop there will be several "**Key to perfection**" sections.
+These are assignments with hints, related to real world issues, that you could do on your own
+if you would like an additional challenge.
