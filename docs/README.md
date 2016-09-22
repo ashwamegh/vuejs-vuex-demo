@@ -9,7 +9,7 @@
 * [Add products](/docs/add-products.md)
 * [Update products](/docs/update-products.md)
 * [Remove products](/docs/remove-products.md)
-* [Routing with vue-router]()
+* [Routing with vue-router](/docs/routing.md)
 * [Refactor to a unidirectional flow]()
 * [Communicating with an API]()
 * [Building a product catalog]()
