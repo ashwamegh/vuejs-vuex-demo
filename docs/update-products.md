@@ -30,7 +30,7 @@ export default {
 </script>
 ```
 
-Since we changed the ProductList to a stateless component we have to bind an `onEdit` event handler to the custom `edit` event that will be called when a table row is clicked.
+Since we changed the ProductList to a stateless component we have to bind an `onEditClicked` event handler to the custom `edit` event that will be called when a table row is clicked.
 
 To populate the form we need to implement an edit form handler in the `ManageProducts` component.
 ```html

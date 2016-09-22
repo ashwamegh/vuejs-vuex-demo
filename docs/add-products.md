@@ -126,7 +126,7 @@ export default {
   props: ['products']
 }
 </script>
-
+```
 
 Move the product data to the ManageProducts component and send it down as props
 to the ProductList.
@@ -186,6 +186,7 @@ Now that we have access to the product list all we need to do is push our new pr
 ```html
 <!-- src/components/ManageProducts.vue  -->
 <script>
+import guid from 'guid';
 ...
 export default {
   ...

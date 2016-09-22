@@ -16,7 +16,7 @@ In a `.vue` file you have three top level tags, `<template>` for your html, `<sc
 
 ```html
 <template>
-	<h1 class="header">I'm a vue.js component</h1>
+  <h1 class="header">I'm a vue.js component</h1>
 </template>
 
 <script>
@@ -29,7 +29,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .header {
-	font-size: 4rem;
+  font-size: 4rem;
 }
 </style>
 ```
@@ -71,7 +71,7 @@ export default {
           id: 'bcd755a6-9a19-94e1-0a5d-426c0303454f',
           name: 'Sharp C2719 curved TV',
           description: 'Watch TV like never before with the brand new curved ' +
-						'screen technology',
+            'screen technology',
           price: 1995,
         },
         {
@@ -103,8 +103,8 @@ When scaffolding a webpack based vue.js project with vue-cli our main component 
 ```html
 <!-- src/App.vue -->
 <template>
-	<!-- when using a component in a template Vue.js expects the DOM element to be
-	lowercased and dasherized. e.g. ProductList -> product-list -->
+  <!-- when using a component in a template Vue.js expects the DOM element to be
+  lowercased and dasherized. e.g. ProductList -> product-list -->
 
   <product-list></product-list>
 </template>
@@ -114,8 +114,8 @@ import ProductList from './components/ProductList';
 
 export default {
   components: {
-		// With ES6 we can use the Object Literal Shorthand Syntax to save us some
-		// keystrokes
+    // With ES6 we can use the Object Literal Shorthand Syntax to save us some
+    // keystrokes
     ProductList
   }
 }

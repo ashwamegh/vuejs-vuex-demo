@@ -7,30 +7,30 @@ Create an `index.html` file in `exercise-files/first-app` with the following cod
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Hello world!</title>
-	<!-- include Vue.js from a CDN -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
-	<script>
-		// wait until the DOM specified in <body> has loaded before executing the
-		// function, if you have ever used jQuery $(document).ready() it is
-		// basically the same thing.
-		document.addEventListener('DOMContentLoaded', function () {
-			// create a new Vue.js instance and specify the template as well as the
-			// data that should be displayed in it.
-			new Vue({
-				el: '#app',
-				data: {
-					message: 'Hello World!'
-				}
-			})
-		})
-	</script>
+  <meta charset="UTF-8">
+  <title>Hello world!</title>
+  <!-- include Vue.js from a CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+  <script>
+    // wait until the DOM specified in <body> has loaded before executing the
+    // function, if you have ever used jQuery $(document).ready() it is
+    // basically the same thing.
+    document.addEventListener('DOMContentLoaded', function () {
+      // create a new Vue.js instance and specify the template as well as the
+      // data that should be displayed in it.
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello World!'
+        }
+      })
+    })
+  </script>
 </head>
 <body>
-	<div id="app">
+  <div id="app">
     {{ message }}
-	</div>
+  </div>
 </body>
 </html>
 ```

@@ -44,7 +44,7 @@ Now we need to implement our `onRemove` event handler in our `ManageProducts` co
 ```html
 <!-- src/components/ManageProducts.vue -->
 <template>
-	...
+  ...
   <product-list
     v-on:edit="onEditClicked"
     v-on:remove="onRemoveClicked"
@@ -55,13 +55,13 @@ Now we need to implement our `onRemove` event handler in our `ManageProducts` co
 <script>
 ...
 export default {
-	...
+  ...
   methods: {
-		...
+    ...
     onRemoveClicked(product) {
       this.products.$remove(product);
 
-			this.resetProductInForm();
+      this.resetProductInForm();
     }
   }
 }
@@ -75,4 +75,4 @@ export default {
  * Only reset the form if the product to be removed is currently in it.
  * Handle an empty state.
 
-	 **HINT!** Use the `v-if` directive to check `products.length`
+   **HINT!** Use the `v-if` directive to check `products.length`
