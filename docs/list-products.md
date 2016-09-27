@@ -124,6 +124,8 @@ export default {
 
 Now open up the command line, run `npm run dev` from the project root, point your browser to http://localhost:8080 and watch your beautiful product list.
 
+![Product list image](/docs/images/product-list.png)
+
 ---
 
 **Key to perfection**

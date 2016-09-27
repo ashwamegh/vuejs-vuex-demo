@@ -212,8 +212,11 @@ export default {
 </script>
 ```
 
-There you have it. Fire up your browser and test it out! Next up we are going to modify our SaveProductForm component so that we can update existing products.
+There you have it. Fire up your browser and test it out!
 
+![Create product image](/docs/images/create-product.png)
+
+Next up we are going to modify our `SaveProductForm` component so that we can update existing products.
 
 ---
 

@@ -110,6 +110,8 @@ This will be addressed in Vue.js 2.0 and then you will be able to assign it as u
 
 That's it! Now you can create and update products!
 
+![Update products](/docs/images/update-product.png)
+
 ---
 
 **Key to perfection**

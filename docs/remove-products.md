@@ -68,6 +68,10 @@ export default {
 </script>
 ```
 
+Easy right? Try it out! `npm run dev` from project root then go to [http://localhost:8080](http://localhost:8080).
+
+![Remove product image](/docs/images/remove-product.png)
+
 ---
 
 **Key to perfection**

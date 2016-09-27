@@ -139,3 +139,5 @@ export default {
 ```
 
 That's all there is to it! Fire up your browser and try it out.
+
+![Routing image](/docs/images/routing.png)
