@@ -10,7 +10,7 @@
 * [Update products](/docs/update-products.md)
 * [Remove products](/docs/remove-products.md)
 * [Routing with vue-router](/docs/routing.md)
-* [Refactor to a unidirectional flow]()
+* [Refactor to a unidirectional flow](/docs/unidirectional-flow.md)
 * [Communicating with an API]()
 * [Building a product catalog]()
 * [Creating the shopping cart]()
