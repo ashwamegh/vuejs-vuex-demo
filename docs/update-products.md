@@ -1,7 +1,9 @@
-# Update product
+# Update products
 
 We already did most of the heavy lifting in the last section but we do need a way to select a
 product in the ProductList component.
+
+From the `/exercise-files/update-product` folder update the `ProductList` component.
 
 ```html
 <!-- src/components/ProductList.vue -->
@@ -10,9 +12,7 @@ product in the ProductList component.
     ...
     <tbody>
       <tr v-for="product in products" track-by="id" v-on:click.prevent="onEdit(product)">
-        <td>{{product.name}}</td>
-        <td>{{product.description}}</td>
-        <td>{{product.price}}:-</td>
+        ...
       </tr>
     </tbody>
   </table>
@@ -30,13 +30,14 @@ export default {
 </script>
 ```
 
-Since we changed the ProductList to a stateless component we have to bind an `onEditClicked` event handler to the custom `edit` event that will be called when a table row is clicked.
+Since we changed the `ProductList` to a stateless component we have to bind an `onEditClicked` event handler to the custom `edit` event that our `ProductList` emits when a table row is clicked.
 
-To populate the form we need to implement an edit form handler in the `ManageProducts` component.
+In the `ManageProducts` component, implement the `onEditClicked()` handler that populates the form with the clicked products data.
 ```html
 <!-- src/components/ManageProducts.vue -->
 <template>
   ...
+  <!-- bind the onEditClicked() function to the edit event with the v-on directive -->
   <product-list
     v-on:edit="onEditClicked"
     :products="products"

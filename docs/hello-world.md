@@ -35,6 +35,8 @@ Create an `index.html` file in `exercise-files/first-app` with the following cod
 </html>
 ```
 
+Open the file in your browser and watch the magic happen!
+
 That is all we need to create a new Vue.js application and separate the presentation from the data.
 
 Although you most certainly will build more complex apps than this I wanted to show you how easy it is to get started because this is really one of the things I like about Vue.js compared to other frameworks. The ability to start small and only adding complexity as you need it with officially supported add-ons like vue-router and vuex.

@@ -1,6 +1,6 @@
 # Environment
 
-First, let's set up our environment so that we are all on the same page.
+First, let's set define our environment so that we are all on the same page.
 
 **You will be needing**
 * Node.js version 6.\* (I recommend using [NVM](https://github.com/creationix/nvm), the Node Version Manager, to install Node.js so that you can easily switch between multiple versions)

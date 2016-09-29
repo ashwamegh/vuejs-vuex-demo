@@ -4,15 +4,15 @@ Simple projects don't need more then some HTML, CSS and javascript but soon enou
 
 Luckily there is a simple Command line tool called [vue-cli](https://github.com/vuejs/vue-cli) that you can use to quickly scaffold a new project with all the bells and whistles that modern web developers use.
 
-Install it globaly with NPM
+You can install it globally with NPM
 ```bash
 npm install -g vue-cli
 ```
 
-Then all you need to do is run the command below. You will be able to customize your setup with some yes/no questions but for now all we need is the basic setup so you can go ahead and answer "no" on all of the questions.
+Then all you would need to do is run the command below. You will be able to customize your setup with some yes/no questions.
 ```bash
-vue init webpack jaystore
+vue init <template> <name>
 ```
 
 **NOTE!**
-Vue-cli support different so called templates to scaffold your project. Here we are using the `webpack` template but if you prefer another module bundler like `browserify` there is a template for that as well.
+Vue-cli support different so called templates to scaffold your project. In this workshop we will be using the `webpack` template but if you prefer another module bundler like `browserify` there is a template for that as well.

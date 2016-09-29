@@ -144,16 +144,7 @@ You can move this data to the store as well but then you would have to refactor 
 ```html
 <!-- src/components/ManageProducts.vue -->
 <template>
-  <save-product-form
-    :product="productInForm"
-    v-on:submit="onFormSave"
-    v-on:cancel="resetProductInForm"
-  ></save-product-form>
-  <product-list
-    :products="products"
-    v-on:edit="onEditClicked"
-    v-on:remove="onRemoveClicked"
-  ></product-list>
+...
 </template>
 
 <script>
@@ -278,7 +269,7 @@ const mutations = {
 ...
 ```
 
-We are done! Run your application if you haven't already with `npm run dev`, fire up your browser and surf to `http://localhost:8080` and everything should look exactly the same as before with the exception of the `ProductCatalog`. Woohoo!
+We are done! Run your application if you haven't already with `npm run dev`, fire up your browser and surf to [http://localhost:8080](http://localhost:8080) and everything should look exactly the same as before with the exception of the `ProductCatalog`. Woohoo!
 
 This may seem like a lot of work and it surely is. In small applications it's probably not worth the hassle but as your application grows, when you find yourself passing data and functions as properties through components that doesn't care about it and when you no longer feel in control of what state your application is in then it's time to really think about using a unidirectional flow as you will most certainly benefit from it in the end.
 

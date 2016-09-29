@@ -15,7 +15,7 @@ You can find an example implementation of an API in the `/api` folder with the f
 First of we should start the api application. From the `/api` folder.
 
 ```bash
-npm run start
+npm start
 ```
 
 **NOTE!** If you want to reset the products at any time just restart the API server.
@@ -52,6 +52,8 @@ Vue.http.options.root = 'http://localhost:3000';
 
 We are going to start by fetching products. Implement a fetch products action.
 ```javascript
+// src/vuex/actions.js
+import guid from 'guid';
 import {
   FETCH_PRODUCTS,
   DELETE_PRODUCT,
@@ -113,6 +115,10 @@ Use the `fetchProducts()` action from the app within the created lifecycle metho
 
 ```html
 <!-- src/App.vue -->
+<template>
+  ...
+</template>
+
 <script>
 import AppNav from './components/AppNav';
 import store from './vuex/store';
@@ -139,6 +145,7 @@ Test it out! `npm run dev` from the console and go to [http://localhost:8080](ht
 
 Implement the remaining actions.
 ```javascript
+// src/vuex/actions.js
 ...
 
 export function createProduct({ dispatch }, product) {

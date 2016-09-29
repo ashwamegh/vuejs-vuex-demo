@@ -1,5 +1,5 @@
 # List products
-Now that we have everything set up we can get to the fun stuff. An e-commerce site obviously needs products. And to be able to manage them we first need to see them so let's start there.
+Now that we have our environment set up we can get to the fun stuff. An e-commerce site obviously needs products. And to be able to manage them we first need to see them so let's start there.
 
 You can start of from the`exercise-files/list-products` folder where I have already setup a project boilerplate with vue-cli and the Twitter Bootstrap CSS framework. Remember to run `npm install` from the project root to install all dependencies.
 
@@ -94,7 +94,7 @@ The product list in itself is not very complicated. As data we provide a list wi
 
 The `track-by` attribute is only used to enhance performance. It's a hint so that Vue.js can optimize it's rendering strategy and only update the list when needed.
 
-Also note that `data` is a function that returns an object. This is important because if we do not do this, the data object will be shared across all instances of the ProductList component which will most certainly lead to unexpected behavior.
+Also note that `data` is a function that returns an object. This is important because if we do not do this, the data object will be shared across all instances of the `ProductList` component which will most certainly lead to unexpected behavior.
 
 ## Attach the ProductList component to the app
 

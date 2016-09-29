@@ -5,9 +5,9 @@ Vue.js. You will make every component from scratch but be provided with some sty
 
 **You will learn how to**
  * Build a web app from scratch with the Vue.js framework
- * Use vue-router to route to different parts of your app
- * Create a unidirectional flow with vuex to separate data and presentation
- * Communicate with a backend REST API
+ * Use [vue-router](https://github.com/vuejs/vue-router) to route to different parts of your app
+ * Create a unidirectional flow with [vuex](https://github.com/vuejs/vuex) to separate data and presentation
+ * Communicate with a backend REST API using the [vue-resource](https://github.com/vuejs/vue-resource) request library
 
 ---
 

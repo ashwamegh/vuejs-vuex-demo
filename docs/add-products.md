@@ -1,6 +1,6 @@
-# Create products
+# Add products
 
-Let's create some products. Since we are going to use the same form for saving and updating products lets name it SaveProductForm.
+Let's create some products. Since we are going to use the same form for saving and updating products lets name it `SaveProductForm`.
 
 From the command-line in the `exercise-files/create-products/` folder
 
@@ -47,6 +47,10 @@ The actual component is not very complicated.
 
 ```html
 <!-- src/components/SaveProductForm.vue  -->
+<template>
+  ...
+</template>
+
 <script>
 export default {
   props: ['product'],
@@ -67,7 +71,7 @@ If you really wan't to make sure that everything is correct Vue.js has something
 called [props validation](http://vuejs.org/guide/components.html#Prop-Validation)
 that let's you validate the properties type. If you have used React I'm sure you know how this works.
 
-Import and add our new component into the ManageProducts component.
+Import and add our new component into the `ManageProducts` component.
 ```html
 <!-- src/components/ManageProducts.vue -->
 <template>
@@ -101,7 +105,7 @@ export default {
   data: initialData,
   methods: {
     onFormSave(product) {
-      console.log('product', product);
+      console.log('product', JSON.stringify(product));
     }
   }
 }
