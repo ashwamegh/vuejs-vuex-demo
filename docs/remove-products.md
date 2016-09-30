@@ -15,7 +15,7 @@ component.
     <tbody>
       <tr v-for="product in products" track-by="id" v-on:click.prevent="onEdit">
         ...
-        <td><a href="#" v-on:click.prevent.stop="onRemove">remove</a></td>
+        <td><a href="#" v-on:click.prevent.stop="onRemove(product)">remove</a></td>
       </tr>
     </tbody>
   </table>
