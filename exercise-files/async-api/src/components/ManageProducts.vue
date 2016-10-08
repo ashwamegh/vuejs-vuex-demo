@@ -1,31 +1,32 @@
 <template>
-  <save-product-form
-    :product="productInForm"
-    v-on:submit="onFormSave"
-    v-on:cancel="resetProductInForm"
-  ></save-product-form>
-  <product-list
-    :products="products"
-    v-on:edit="onEditClicked"
-    v-on:remove="onRemoveClicked"
-  ></product-list>
+  <section>
+    <save-product-form
+      :product="productInForm"
+      v-on:submit="onFormSave"
+      v-on:cancel="resetProductInForm"
+    ></save-product-form>
+    <product-list
+      :products="products"
+      v-on:edit="onEditClicked"
+      v-on:remove="onRemoveClicked"
+    ></product-list>
+  </section>
 </template>
 
 <script>
-import { getProducts } from '../vuex/getters';
-import { saveProduct, deleteProduct } from '../vuex/actions';
+import { mapGetters, mapActions } from 'vuex'
 import ProductList from './ProductList';
 import SaveProductForm from './SaveProductForm';
 
 const initialData = () => {
-  return {
-    productInForm: {
-      id: null,
-      name: '',
-      description: '',
-      price: null
-    }
-  }
+ return {
+   productInForm: {
+     id: null,
+     name: '',
+     description: '',
+     price: null
+   }
+ }
 }
 
 export default {
@@ -34,16 +35,14 @@ export default {
     SaveProductForm
   },
   data: initialData,
-  vuex: {
-    actions: {
-      saveProduct,
-      deleteProduct
-    },
-    getters: {
-      products: getProducts
-    }
-  },
+  computed: mapGetters({
+    products: 'getProducts'
+  }),
   methods: {
+    ...mapActions([
+      'saveProduct',
+      'deleteProduct'
+    ]),
     onFormSave() {
       // clone the productInForm object
       const product = { ...this.productInForm };
@@ -54,17 +53,15 @@ export default {
     },
     resetProductInForm() {
       this.productInForm = initialData().productInForm;
+
     },
     onEditClicked(product) {
-      this.productInForm.id = product.id;
-      this.productInForm.name = product.name;
-      this.productInForm.description = product.description;
-      this.productInForm.price = product.price;
+      this.productInForm = { ...product };
     },
-    onRemoveClicked(product) {
-      this.deleteProduct(product);
+    onRemoveClicked(productId) {
+      this.deleteProduct(productId);
 
-      if (product.id === this.productInForm.id) {
+      if (productId === this.productInForm.id) {
         this.resetProductInForm();
       }
     }

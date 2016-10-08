@@ -1,18 +1,17 @@
 <template>
-  <ul v-for="product in products" track-by="id">
-    <li>{{product.name}}</li>
-  </ul>
+  <section>
+    <ul v-for="product in products" track-by="id">
+      <li>{{product.name}}</li>
+    </ul>
+  </section>
 </template>
 
 <script>
-import { getProducts } from '../vuex/getters';
+import { mapGetters } from 'vuex'
 
 export default {
-
-  vuex: {
-    getters: {
-      products: getProducts
-    }
-  }
+  computed: mapGetters({
+    products: 'getProducts'
+  })
 }
 </script>

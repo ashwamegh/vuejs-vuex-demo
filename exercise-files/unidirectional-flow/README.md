@@ -1,4 +1,4 @@
-# list-products
+# jaystore
 
 > A Vue.js project
 

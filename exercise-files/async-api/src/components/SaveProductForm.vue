@@ -32,10 +32,10 @@ export default {
       formErrors: {}
     }
   },
-  ready() {
-    this.$watch('product.id', () => {
+  watch: {
+    ['product.id']() {
       this.formErrors = {};
-    })
+    }
   },
   methods: {
     validateForm() {

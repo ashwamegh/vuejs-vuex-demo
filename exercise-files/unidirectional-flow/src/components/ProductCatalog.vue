@@ -1,5 +1,5 @@
 <template>
-  I'm a product catalog!
+  <p>I'm a product catalog!</p>
 </template>
 
 <script>

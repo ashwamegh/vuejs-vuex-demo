@@ -1,18 +1,20 @@
 <template>
-  <save-product-form
-    :product="productInForm"
-    v-on:submit="onFormSave"
-    v-on:cancel="resetProductInForm"
-  ></save-product-form>
-  <product-list
-    :products="products"
-    v-on:edit="onEditClicked"
-    v-on:remove="onRemoveClicked"
-  ></product-list>
+  <section>
+    <save-product-form
+      :product="productInForm"
+      v-on:submit="onFormSave"
+      v-on:cancel="resetProductInForm"
+    ></save-product-form>
+    <product-list
+      :products="products"
+      v-on:edit="onEditClicked"
+      v-on:remove="onRemoveClicked"
+    ></product-list>
+  </section>
 </template>
 
 <script>
-import guid from 'guid';
+import uuid from 'uuid';
 import ProductList from './ProductList';
 import SaveProductForm from './SaveProductForm';
 
@@ -63,9 +65,12 @@ export default {
 
       // update product if it exists or create it if it doesn't
       if (index !== -1) {
-        this.products.$set(index, product);
+        // We need to replace the array entirely so that vue can recognize
+        // the change and re-render entirely.
+        // See http://vuejs.org/guide/list.html#Caveats
+        this.products.splice(index, 1, product)
       } else {
-        product.id = guid.raw();
+        product.id = uuid.v4();
         this.products.push(product);
       }
 
@@ -76,13 +81,12 @@ export default {
 
     },
     onEditClicked(product) {
-      this.productInForm.id = product.id;
-      this.productInForm.name = product.name;
-      this.productInForm.description = product.description;
-      this.productInForm.price = product.price;
+      this.productInForm = product;
     },
     onRemoveClicked(product) {
-      this.products.$remove(product);
+      const index = this.products.findIndex((p) => p.id === product.id);
+
+      this.products.splice(index, 1);
 
       if (product.id === this.productInForm.id) {
         this.resetProductInForm();

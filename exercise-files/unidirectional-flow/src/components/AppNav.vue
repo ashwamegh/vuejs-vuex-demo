@@ -4,16 +4,22 @@
       <img src="../assets/jay.svg" alt="Jayway logo" /> Jaystore
     </a>
     <div class="nav navbar-nav">
-      <a
-        href="#"
+      <router-link
+        to="home"
         class="nav-item nav-link"
-        v-link="{ path: '/home', exact: true, activeClass: 'active' }"
-      >Home</a>
-      <a
-        href="#"
+        active-class="active"
+        exact
+      >
+        Home
+      </router-link>
+      <router-link
+        to="manage-products"
         class="nav-item nav-link"
-        v-link="{ path: '/manage-products', exact: true, activeClass: 'active' }"
-      >Manage Products</a>
+        active-class="active"
+        exact
+      >
+        Manage Products
+      </router-link>
     </div>
   </nav>
 </template>
