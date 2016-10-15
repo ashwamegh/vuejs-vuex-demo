@@ -1,29 +1,43 @@
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 
-import '../node_modules/bootstrap/dist/js/bootstrap'
+import store from './vuex/store';
 
+// import components
 import App from './App'
-import ManageProducts from './components/admin/ManageProducts'
-import ProductListing from './components/ProductListing'
+import ProductCatalog from './components/ProductCatalog';
+import ManageProducts from './components/ManageProducts';
+
+// import some global styles
+import './styles/style.scss'
+
+// import global libs
+import '../node_modules/bootstrap/dist/js/bootstrap'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-const router = new VueRouter()
+// set the API root so we can use relative url's in our actions.
+Vue.http.options.root = 'http://localhost:3000';
 
-router.map({
-  '/home': {
-    component: ProductListing
-  },
-  '/manage-products': {
-    component: ManageProducts
-  }
+const routes = [
+  { path: '/home', alias: '/', component: ProductCatalog },
+  { path: '/manage-products', component: ManageProducts }
+]
+
+// Create the router instance and pass the `routes` option
+const router = new VueRouter({
+  routes
 })
 
-router.alias({
-  '/': '/home'
-})
 
-router.start(App, 'app')
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  store,
+  router,
+  render: h => h(App)
+})

@@ -1,33 +1,24 @@
 <template>
-  <header class="app-header">
-    <app-nav></app-nav>
-  </header>
-  <main class="container">
-    <router-view></router-view>
-  </main>
+  <div>
+    <header class="app-header">
+      <app-nav></app-nav>
+    </header>
+    <main class="container">
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
 
 <script>
-import store from './vuex/store'
-import AppNav from './components/AppNav'
+import AppNav from './components/AppNav';
 
 export default {
-  store,
   components: {
     AppNav
+  },
+
+  created () {
+    this.$store.dispatch('fetchProducts')
   }
 }
 </script>
-
-<style lang="scss">
-// Import global styles
-@import "styles/style.scss";
-</style>
-
-<style lang="css" scoped>
-
-.app-header {
-  margin-bottom: 3rem;
-}
-
-</style>

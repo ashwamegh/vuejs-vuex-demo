@@ -1,10 +1,19 @@
+import * as getters from './getters'
+import * as actions from './actions'
+
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  SUBTRACT_FROM_CART
+} from './mutation-types'
+
 const initialState = {
   products: []
 }
 
 // mutations
 const mutations = {
-  ADD_TO_CART (state, product) {
+  [ADD_TO_CART] (state, product) {
     const record = state.products.find(p => p.id === product.id)
     if (!record) {
       state.products.push({
@@ -17,16 +26,13 @@ const mutations = {
       record.quantity++
     }
   },
-  REMOVE_FROM_CART (state, productId) {
-    const record = state.products.find(p => p.id === productId)
-    if (record) {
-      state.products.$remove(record)
-    }
+  [REMOVE_FROM_CART] (state, productId) {
+    state.products = state.products.filter(p => p.id !== productId);
   },
-  SUBTRACT_FROM_CART (state, productId) {
+  [SUBTRACT_FROM_CART] (state, productId) {
     const record = state.products.find(p => p.id === productId)
     if (record && record.quantity === 1) {
-      state.products.$remove(record)
+      state.products = state.products.filter(p => p.id !== productId);
     } else if (record) {
       record.quantity--
     }
@@ -35,5 +41,7 @@ const mutations = {
 
 export default {
   state: {...initialState},
+  getters,
+  actions,
   mutations
 }

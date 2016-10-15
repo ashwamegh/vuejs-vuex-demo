@@ -1,16 +1,39 @@
-<template lang="html">
+<template>
   <nav class="navbar navbar-full navbar-light navbar-jw">
-    <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#appnav" aria-controls="appnav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler hidden-sm-up pull-xs-right"
+      type="button"
+      data-toggle="collapse"
+      data-target="#appnav"
+      aria-controls="appnav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       &#9776;
     </button>
+
     <a class="navbar-brand" href="#">
-      <img src="../assets/jay.svg" alt="Jayway logo" />
-      Jaystore
+      <img src="../assets/jay.svg" alt="Jayway logo" /> Jaystore
     </a>
+
     <div class="collapse navbar-toggleable-xs" id="appnav">
       <div class="nav navbar-nav">
-        <a class="nav-item nav-link" v-link="{ path: '/home', exact: true, activeClass: 'active' }" href="#">Home</a>
-        <a class="nav-item nav-link" v-link="{ path: '/manage-products', exact: true, activeClass: 'active' }" href="#">Manage Products</a>
+        <router-link
+          to="home"
+          class="nav-item nav-link"
+          active-class="active"
+          exact
+        >
+          Home
+        </router-link>
+        <router-link
+          to="manage-products"
+          class="nav-item nav-link"
+          active-class="active"
+          exact
+        >
+          Manage Products
+        </router-link>
       </div>
       <div class="nav navbar-nav pull-sm-right">
         <div class="nav-item dropdown dropdown-cart">
@@ -21,36 +44,26 @@
             <shopping-cart></shopping-cart>
           </div>
         </div>
-    </div>
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
 import ShoppingCart from './ShoppingCart'
-import {getCartItems} from '../vuex/getters'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     ShoppingCart
   },
-  data () {
-    return {
-    }
-  },
   computed: {
     totalItems () {
       return this.inCart.reduce((sum, p) => sum + p.quantity, 0)
-    }
-  },
-  vuex: {
-    getters: {
-      inCart: getCartItems
-    }
+    },
+    ...mapGetters({
+      inCart: 'getCartItems'
+    })
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

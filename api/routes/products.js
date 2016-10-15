@@ -18,15 +18,17 @@ const inMemoryProducts = initialData;
 // so it gets dibs on the route matching
 productsApi.put('/upload', upload.single('product_image'), (req, res) => {
   const productId = req.body.product_id;
+  const filename = productId + Date.now();
+
   sharp(req.file.buffer)
     .resize(200, 200)
     .crop(sharp.strategy.entropy)
-    .toFile(`${__dirname}/../public/uploads/${productId}`, (err) => {
+    .toFile(`${__dirname}/../public/uploads/${filename}`, (err) => {
       if (err) {
         console.error('woops', err);
       }
 
-      inMemoryProducts[productId].imageUrl = `http://localhost:3000/uploads/${productId}`;
+      inMemoryProducts[productId].imageUrl = `http://localhost:3000/uploads/${filename}`;
       inMemoryProducts[productId].imageName = req.file.originalname;
 
       res.status(201);

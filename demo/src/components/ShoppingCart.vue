@@ -31,29 +31,22 @@
 </template>
 
 <script>
-import {getCartItems} from '../vuex/getters'
-import {addToCart, removeFromCart, subtractFromCart} from '../vuex/actions'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-    }
-  },
   computed: {
     total () {
       return this.products.reduce((sum, p) => sum + (p.quantity * p.price), 0)
-    }
-  },
-  vuex: {
-    actions: {
-      addToCart,
-      removeFromCart,
-      subtractFromCart
     },
-    getters: {
-      products: getCartItems
-    }
-  }
+    ...mapGetters({
+      products: 'getCartItems'
+    })
+  },
+  methods: mapActions([
+      'addToCart',
+      'removeFromCart',
+      'subtractFromCart'
+  ])
 }
 </script>
 

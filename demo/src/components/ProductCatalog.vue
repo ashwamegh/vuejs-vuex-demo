@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <section class="row">
     <div class="col-sm-6 col-md-4" v-for="product in products">
       <section class="card card-product">
         <figure class="card-img-top card-product-image">
@@ -20,26 +20,20 @@
         </div>
       </section>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
-import { getProducts } from '../vuex/getters'
-import { fetchProducts, addToCart } from '../vuex/actions'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  compiled () {
-    this.fetchProducts()
-  },
-  vuex: {
-    getters: {
-      products: getProducts
-    },
-    actions: {
-      fetchProducts,
-      addToCart
-    }
-  }
+  computed: mapGetters({
+    products: 'getProducts'
+  }),
+  methods: mapActions([
+    'fetchProducts',
+    'addToCart'
+  ])
 }
 </script>
 
