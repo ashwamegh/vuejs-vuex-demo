@@ -44,12 +44,14 @@ Now we need to implement our `onRemove` event handler in our `ManageProducts` co
 ```html
 <!-- src/components/ManageProducts.vue -->
 <template>
-  ...
-  <product-list
-    v-on:edit="onEditClicked"
-    v-on:remove="onRemoveClicked"
-    :products="products">
-  </product-list>
+  <section>
+		...
+    <product-list
+      :products="products"
+      v-on:edit="onEditClicked"
+      v-on:remove="onRemoveClicked"
+    ></product-list>
+  </section>
 </template>
 
 <script>
@@ -58,10 +60,14 @@ export default {
   ...
   methods: {
     ...
-    onRemoveClicked(product) {
-      this.products.$remove(product);
+		onRemoveClicked(product) {
+      const index = this.products.findIndex((p) => p.id === product.id);
 
-      this.resetProductInForm();
+      this.products.splice(index, 1);
+
+      if (product.id === this.productInForm.id) {
+        this.resetProductInForm();
+      }
     }
   }
 }

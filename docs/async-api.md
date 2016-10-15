@@ -52,8 +52,11 @@ Vue.http.options.root = 'http://localhost:3000';
 
 We are going to start by fetching products. Implement a fetch products action.
 ```javascript
-// src/vuex/actions.js
-import guid from 'guid';
+// src/vuex/modules/products/actions.js
+
+// import the http module that has been added by vue-resource
+import { http } from 'vue'
+
 import {
   FETCH_PRODUCTS,
   DELETE_PRODUCT,
@@ -61,33 +64,28 @@ import {
   UPDATE_PRODUCT
 } from './mutation-types';
 
-// import the http module that has been added by vue-resource
-import { http } from 'vue'
-
-export function fetchProducts ({ dispatch }) {
+export function fetchProducts ({ commit }) {
   return http.get('products/')
-    .then((response) => dispatch(FETCH_PRODUCTS, response.body.data))
+    .then((response) => commit(FETCH_PRODUCTS, response.body.data))
 }
 
 ...
 ```
 Because we set the API root before we can use relative urls here. This is just a convenience but it's very useful when running our app against different api's e.g. when running in development or production.
 
-When the promise resolves we dispatch an event to the store with the response data.
+When the promise resolves we commit an event to the store with the response data.
 
 
 Add a mutation type.
 ```javascript
-// src/vuex/mutation-types.js
-export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
+// src/vuex/modules/products/mutation-types.js
+export const FETCH_PRODUCTS = 'products/FETCH_PRODUCTS';
 ...
 ```
 
 Create the mutation function. Also change `initialState` to contain an empty array of products as we will get our products from the API.
 
 ```javascript
-import guid from 'guid';
-
 import {
   FETCH_PRODUCTS,
   CREATE_PRODUCT,
@@ -111,7 +109,7 @@ const mutations = {
 ...
 ```
 
-Use the `fetchProducts()` action from the app within the created lifecycle method that is called directly after the app instance has been created. We would like to fetch our products as soon as possible so that our site feels fast and responsive.
+Dispatch the `fetchProducts` action from the app within the created lifecycle method that is called directly after the app instance has been created. We would like to fetch our products as soon as possible so that our site feels fast and responsive.
 
 ```html
 <!-- src/App.vue -->
@@ -120,22 +118,13 @@ Use the `fetchProducts()` action from the app within the created lifecycle metho
 </template>
 
 <script>
-import AppNav from './components/AppNav';
-import store from './vuex/store';
-import { fetchProducts } from './vuex/actions';
-
 export default {
-  store,
   components: {
     AppNav
   },
-  vuex: {
-    actions: {
-      fetchProducts
-    }
-  },
+
   created () {
-    this.fetchProducts();
+    this.$store.dispatch('fetchProducts')
   }
 }
 </script>
@@ -145,32 +134,32 @@ Test it out! `npm run dev` from the console and go to [http://localhost:8080](ht
 
 Implement the remaining actions.
 ```javascript
-// src/vuex/actions.js
+// src/vuex/modules/products/actions.js
 ...
 
-export function createProduct({ dispatch }, product) {
+export function createProduct({ commit }, product) {
   return http.post('products', product)
-    .then((response) => dispatch(CREATE_PRODUCT, response.body.data))
+    .then((response) => commit(CREATE_PRODUCT, response.body.data))
 }
 
-export function updateProduct ({ dispatch }, product) {
+export function updateProduct ({ commit }, product) {
   return http.put(`products/${product.id}`, product)
-    .then((response) => dispatch(UPDATE_PRODUCT, response.body.data))
+    .then((response) => commit(UPDATE_PRODUCT, response.body.data))
 }
 
-export function deleteProduct ({ state, dispatch }, product) {
-  return http.delete(`products/${product.id}`)
-    .then((response) => dispatch(DELETE_PRODUCT, product))
+export function deleteProduct ({ commit }, productId) {
+  return http.delete(`products/${productId}`)
+    .then((response) => commit(DELETE_PRODUCT, productId))
 }
 
-export function saveProduct({ state, dispatch }, product) {
-  const index = state.products.all.findIndex((p) => p.id === product.id);
+export function saveProduct({ commit, state }, product) {
+  const index = state.all.findIndex((p) => p.id === product.id);
 
   // update product if it exists or create it if it doesn't
   if (index !== -1) {
-    return updateProduct({ dispatch }, product)
+    return updateProduct({ commit }, product)
   } else {
-    return createProduct({ dispatch }, product)
+    return createProduct({ commit }, product)
   }
 }
 ```
@@ -187,6 +176,7 @@ Refactor the `ManageProducts` component to wait for the promises to resolve.
 export default {
 	...
   methods: {
+    ...
     onFormSave() {
       // clone the productInForm object
       const product = { ...this.productInForm };

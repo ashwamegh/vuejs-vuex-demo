@@ -10,7 +10,7 @@ Create an `index.html` file in `exercise-files/first-app` with the following cod
   <meta charset="UTF-8">
   <title>Hello world!</title>
   <!-- include Vue.js from a CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
   <script>
     // wait until the DOM specified in <body> has loaded before executing the
     // function, if you have ever used jQuery $(document).ready() it is

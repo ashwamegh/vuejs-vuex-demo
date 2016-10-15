@@ -11,7 +11,7 @@ You have now completed the Vue.js workshop. Hopefully you now have some understa
  * Complete the `ProductCatalog` component so that you can add products to your shopping cart.
  * Display a loading indicator while the products is being fetched.
 
-   **HINT!** You can dispatch a loading event to the store before the actual request is sent and when the request has finished you update the loading state to false.
+   **HINT!** You can commit a loading event to the store before the actual request is sent and when the request has finished you update the loading state to false.
  * Apply a transition when inserting a new product into the `ProductList`
  * Serve the app from a backend server with the initial state already injected so that the browser doesn't have to make an additional request to fetch the data.
  * Add filtering and sorting to the `ProductList`

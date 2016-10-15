@@ -5,12 +5,12 @@ When we implemented the routing we also created a `ProductCatalog` module that w
 ![Poor component communication](https://cdn.css-tricks.com/wp-content/uploads/2016/03/redux-article-3-01.svg)
 _Image by [Brad Westfall](https://css-tricks.com/learning-react-redux/)_
 
-The unidirectional flow design helps us with these issues and fortunately there is a nice library to help us out called [vuex](https://github.com/vuejs/vuex). For a complete introduction to vuex I recommend you read the [docs](https://github.com/vuejs/vuex/tree/1.0/docs/en) but essentially it helps us create something like this.
+The unidirectional flow design helps us with these issues and fortunately there is a nice library to help us out called [vuex](https://github.com/vuejs/vuex). For a complete introduction to vuex I recommend you read the [docs](http://vuex.vuejs.org/en/index.html) but essentially it helps us create something like this.
 
 ![Unidirectional flow](https://cdn.css-tricks.com/wp-content/uploads/2016/03/redux-article-3-02.svg)
 _Image by [Brad Westfall](https://css-tricks.com/learning-react-redux/)_
 
-The state from the components is extracted and put in a single place (_the store_) which is then passed through to all the components in a _unidirectional flow_. Instead of modifying the store from within the components you only _dispatch_ so called _actions_ which is then handled in the store by action handlers (called _mutators_ in vuex). This makes it much easier to reason about state and how it changes.
+The state from the components is extracted and put in a single place (_the store_) which is then passed through to all the components in a _unidirectional flow_. Instead of modifying the store from within the components you only _commit_ so called _mutations_ which is then handled in the store by _mutators_. This makes it much easier to reason about state and how it changes.
 
 Now that you know some of the benefits of a unidirectional flow let's begin.
 
@@ -24,6 +24,7 @@ Create the store in `src/vuex/store.js`
 // src/vuex/store.js
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 import products from './modules/products'
 
 Vue.use(Vuex)
@@ -41,10 +42,11 @@ export default new Vuex.Store({
 We import `Vuex` and add it as a middleware to `Vue`. We then create and export a vuex store with the `products` module that we haven't created yet and with a strict flag that will be false in production. The `strict` flag adds some validation and warns us if we try to modify vuex state outside of our mutators which can be very handy when developing but this validation limits performance so that is why we don't want it active in production.
 
 
-Create products module `src/vuex/modules/products.js`.
+Create products module `src/vuex/modules/products/index.js`.
 
 ```javascript
-// src/vuex/modules/products.js
+// src/vuex/modules/products/index.js
+import * as getters from './getters';
 
 // initial state
 const initialState = {
@@ -76,69 +78,68 @@ const mutations = {
 }
 
 export default {
-  state: Object.assign({}, initialState),
+  state: { ...initialState },
+  getters,
   mutations
 }
 ```
 
-Nothing special going on here. All we do is export an object with our state and our mutations (which we will implement later on). The reason why I use `Object.assign()` to make a copy of our initialState is only to give me the possibility to reset our initialState at a later time should I want to.
+Nothing special going on here. All we do is export an object with our state and our mutations (which we will implement later on). The reason why I use the object spread operator `{ ...object }`  to make a copy of our initialState is only to give me the possibility to reset our initialState at a later time should I want to.
 
 We use getter functions to return the state to our components. This is a convention in vuex and you don't have to do this but
 it does have it's advantages as it is an abstraction over the access of state and if we would like to change the structure of our state then we would only need to update our getters and not every component that uses it.
 
-Create the getters file in `src/vuex/getters.js` that will return our products.
+Create the getters file in `src/vuex/modules/products/getters.js` that will return our products.
 
 ```javascript
-// src/vuex/getters.js
-export const getProducts = state => state.products.all
+// src/vuex/modules/products/getters.js
+export const getProducts = state => state.all
 ```
 
-Import to our top level component. In this case the `App`.
-```html
-<!-- src/App.vue -->
+Add the store to Vue in `src/main.js`.
+```js
+// src/main.js
 ...
-<script>
-import AppNav from './components/AppNav';
 import store from './vuex/store';
 
-export default {
+...
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
   store,
-  components: {
-    AppNav
-  }
-}
-</script>
+  router,
+  render: h => h(App)
+})
 ```
 
-Use our getter in the `ProductCatalog`.
+Map our `getProducts()` getter as a computed property in the `ProductCatalog`.
 ```html
 <!-- src/components/ProductCatalog.vue -->
 <template>
-  <ul v-for="product in products" track-by="id">
-    <li>{{product.name}}</li>
-  </ul>
+  <section>
+    <ul v-for="product in products" track-by="id">
+      <li>{{product.name}}</li>
+    </ul>
+  </section>
 </template>
 
 <script>
-import { getProducts } from '../vuex/getters';
+import { mapGetters } from 'vuex'
 
 export default {
-
-  vuex: {
-    getters: {
-      products: getProducts
-    }
-  }
+  computed: mapGetters({
+    products: 'getProducts'
+  })
 }
 </script>
 ```
 
-This is how we retrieve data from our store. First of import the desired getter function and then map it to the component in the `vuex.getters` object. The products will now be available in the component under `this.products` just as if it was defined
-in the components data function.
+This is how we retrieve data from our store. First of import the `mapGetters()` function and then map your desired getters as computed properties to the component. The products will now be available in the component under `this.products` just as if it was defined in the components data function.
 
 You should be able to test it out now and see a list of products in our `ProductCatalog`.
 
-We still need to refactor our `ManageProducts` component to use the data from the store and to dispatch actions instead of handling everything. We will keep some state in the `ManageProducts` component. More specifically the `productInForm` data.
+We still need to refactor our `ManageProducts` component to use the data from the store and to commit our changes instead of handling everything. We will keep some state in the `ManageProducts` component. More specifically the `productInForm` data.
 You can move this data to the store as well but then you would have to refactor the `SaveProductForm` to not use two-way binding to update our `productInForm` since modifying the stores state outside of mutators isn't allowed. This is really up to you but my point of view is that state that is isolated to a certain part of the application or component doesn't always have to be connected to the store.
 
 ```html
@@ -148,8 +149,7 @@ You can move this data to the store as well but then you would have to refactor 
 </template>
 
 <script>
-import { getProducts } from '../vuex/getters';
-import { saveProduct, deleteProduct } from '../vuex/actions';
+import { mapGetters, mapActions } from 'vuex'
 ...
 
 const initialData = () => {
@@ -165,16 +165,14 @@ const initialData = () => {
 
 export default {
   ...
-  vuex: {
-    actions: {
-      saveProduct,
-      deleteProduct
-    },
-    getters: {
-      products: getProducts
-    }
-  },
+  computed: mapGetters({
+    products: 'getProducts'
+  }),
   methods: {
+    ...mapActions([
+      'saveProduct',
+      'deleteProduct'
+    ]),
     onFormSave() {
       // clone the productInForm object
       const product = { ...this.productInForm };
@@ -196,11 +194,11 @@ export default {
 </script>
 ```
 
-As before we used our getter function to retrieve our products. We also imported some actions that we used in the `onFormSave()` and `onRemoveClicked()` methods. Let's implement these actions now in `src/vuex/actions.js`.
+As before we mapped our getter function to retrieve our products. We also mapped some actions that we used in the `onFormSave()` and `onRemoveClicked()` methods. Let's implement these actions now in `src/vuex/modules/products/actions.js`.
 
 ```javascript
-// src/vuex/actions.js
-import guid from 'guid';
+// src/vuex/modules/products/actions.js
+import uuid from 'uuid';
 
 import {
   DELETE_PRODUCT,
@@ -208,37 +206,40 @@ import {
   UPDATE_PRODUCT
 } from './mutation-types';
 
-export function saveProduct({ state, dispatch }, product) {
-  const index = state.products.all.findIndex((p) => p.id === product.id);
+export function saveProduct({ commit, state }, product) {
+  const index = state.all.findIndex((p) => p.id === product.id);
 
   // update product if it exists or create it if it doesn't
   if (index !== -1) {
-    dispatch(UPDATE_PRODUCT, product)
+    commit(UPDATE_PRODUCT, product)
   } else {
-    product.id = guid.raw();
-    dispatch(CREATE_PRODUCT, product)
+    product.id = uuid.v4();
+    commit(CREATE_PRODUCT, product)
   }
 }
 
-export function deleteProduct ({ state, dispatch }, product) {
-  dispatch(DELETE_PRODUCT, product)
+export function deleteProduct ({ commit }, productId) {
+  commit(DELETE_PRODUCT, productId)
 }
 ```
 
-So an action is just a function that takes an options object as its first argument with the `state` and `dispatch` function.
-We then dispatch an event to the store that is then handled by a mutation function. The event and mutation function is associated by a mutation type which is just a string constant.
+So an action is just a function that takes an options object as its first argument with the `state` and `commit` function.
+We then commit an event to the store that is then handled by a mutation function. The event and mutation function is associated by a mutation type which is just a string constant.
 
-Let's define our mutation types. In `src/vuex/mutation-types.js`.
+Let's define our mutation types. In `src/vuex/modules/products/mutation-types.js`.
 ```javascript
-// src/vuex/mutation-types.js
-export const CREATE_PRODUCT = 'CREATE_PRODUCT';
-export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+// src/vuex/modules/products/mutation-types.js
+export const CREATE_PRODUCT = 'products/CREATE_PRODUCT';
+export const UPDATE_PRODUCT = 'products/UPDATE_PRODUCT';
+export const DELETE_PRODUCT = 'products/DELETE_PRODUCT';
 ```
 
-Implement the mutations. In `src/vuex/modules/products.js`.
+Implement the mutations. In `src/vuex/modules/products/index.js`.
 ```javascript
-// src/vuex/modules/products.js
+// src/vuex/modules/products/index.js
+import * as actions from './actions';
+import * as getters from './getters';
+
 import {
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
@@ -258,15 +259,27 @@ const mutations = {
 
   [UPDATE_PRODUCT] (state, product) {
     const index = state.all.findIndex((p) => p.id === product.id);
-    state.all.$set(index, product);
+
+    if (index !== -1) {
+      // We need to replace the array entirely so that vue can recognize
+      // the change and re-render entirely.
+      // See http://vuejs.org/guide/list.html#Caveats
+      state.all.splice(index, 1, product)
+    }
   },
 
-  [DELETE_PRODUCT] (state, product) {
-    state.all.$remove(product);
+  [DELETE_PRODUCT] (state, productId) {
+    state.all = state.all.filter(p => p.id !== productId);
   }
 }
 
-...
+export default {
+  state: { ...initialState },
+  // OBS! Don't forget to export your actions from the products module as well.
+  actions,
+  getters,
+  mutations
+}
 ```
 
 We are done! Run your application if you haven't already with `npm run dev`, fire up your browser and surf to [http://localhost:8080](http://localhost:8080) and everything should look exactly the same as before with the exception of the `ProductCatalog`. Woohoo!

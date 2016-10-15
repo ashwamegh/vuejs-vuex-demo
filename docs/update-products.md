@@ -36,13 +36,14 @@ In the `ManageProducts` component, implement the `onEditClicked()` handler that 
 ```html
 <!-- src/components/ManageProducts.vue -->
 <template>
-  ...
-  <!-- bind the onEditClicked() function to the edit event with the v-on directive -->
-  <product-list
-    v-on:edit="onEditClicked"
-    :products="products"
-  >
-  </product-list>
+  <section>
+    ...
+    <!-- bind the onEditClicked() function to the edit event with the v-on directive -->
+    <product-list
+      :products="products"
+      v-on:edit="onEditClicked"
+    ></product-list>
+  </section>
 </template>
 
 <script>
@@ -53,19 +54,12 @@ export default {
   methods: {
     ...
     onEditClicked(product) {
-      this.productInForm.id = product.id;
-      this.productInForm.name = product.name;
-      this.productInForm.description = product.description;
-      this.productInForm.price = product.price;
+      this.productInForm = product;
     }
   }
 }
 </script>
 ```
-
-A small caveat here is that you cannot simply assign the product to `this.productInForm`
-since Vue.js will not react properly so you have to actually assign each individual property.
-
 
 All we really need to do now is to modify the `onFormSave()` method to handle updates
 as well.
@@ -87,10 +81,12 @@ export default {
 
       // update product if it exists or create it if it doesn't
       if (index !== -1) {
-        this.products.$set(index, product);
+        // We need to replace the array entirely so that vue can recognize
+        // the change and re-render entirely.
+        // See http://vuejs.org/guide/list.html#Caveats
+        this.products.splice(index, 1, product)
       } else {
-        // Create an ID using the third-party lib 'guid'
-        product.id = guid.raw();
+        product.id = uuid.v4();
         this.products.push(product);
       }
 
@@ -101,13 +97,6 @@ export default {
 }
 </script>
 ```
-
-Note that we are using `this.product.$set(index, product)` to update a list item.
-This is another caveat with Vue.js where the DOM won't react properly if it's directly
-assigned.
-
-**NOTE!**
-This will be addressed in Vue.js 2.0 and then you will be able to assign it as usual i.e. `this.products[index] = product`
 
 That's it! Now you can create and update products!
 

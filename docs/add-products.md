@@ -75,14 +75,16 @@ Import and add our new component into the `ManageProducts` component.
 ```html
 <!-- src/components/ManageProducts.vue -->
 <template>
-  <save-product-form
-    :product="productInForm"
-    v-on:submit="onFormSave"
-  ></save-product-form>
-  <product-list></product-list>
+  <section>
+    <save-product-form
+      :product="productInForm"
+      v-on:submit="onFormSave"
+    ></save-product-form>
+    <product-list></product-list>
+  </section>
 </template>
-
 <script>
+
 import ProductList from './ProductList'
 import SaveProductForm from './SaveProductForm'
 
@@ -138,8 +140,12 @@ to the ProductList.
 ```html
 <!-- src/components/ManageProducts.vue  -->
 <template>
-  ...
-  <product-list :products="products"></product-list>
+  <section>
+    ...
+    <product-list
+      :products="products">
+    </product-list>
+  </section>
 </template>
 
 <script>
@@ -190,7 +196,7 @@ Now that we have access to the product list all we need to do is push our new pr
 ```html
 <!-- src/components/ManageProducts.vue  -->
 <script>
-import guid from 'guid';
+import uuid from 'uuid';
 ...
 export default {
   ...
@@ -201,8 +207,8 @@ export default {
         // Use the Object Spread operator to force JS to clone the object
         ...this.productInForm
       };
-      // Generate an id using the third-party lib 'guid'
-      product.id = guid.raw();
+      // Generate an id using the third-party lib 'uuid'
+      product.id = uuid.v4();
       // add it to the product list
       this.products.push(product);
       // reset the form

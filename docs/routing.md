@@ -13,40 +13,35 @@ Adding the router to the Vue instance is straight forward.
 
 ```javascript
 // src/main.js
-
 import Vue from 'vue'
+import App from './App'
+
 import VueRouter from 'vue-router'
 
-import App from './App'
-import ManageProducts from './components/ManageProducts'
-import ProductCatalog from './components/ProductCatalog'
+import ProductCatalog from './components/ProductCatalog';
+import ManageProducts from './components/ManageProducts';
 
+// import some global styles
 import './styles/style.scss'
 
-// Add the router to Vue using Vue.use()
 Vue.use(VueRouter)
 
-// Create a new router instance
-const router = new VueRouter()
+const routes = [
+  { path: '/home', alias: '/', component: ProductCatalog },
+  { path: '/manage-products', component: ManageProducts }
+]
 
-// Map routes to components
-router.map({
-  '/home': {
-    component: ProductCatalog
-  },
-  '/manage-products': {
-    component: ManageProducts
-  }
+// Create the router instance and pass the `routes` option
+const router = new VueRouter({
+  routes
 })
 
-// alias the home route so it is also matches `/` (index route)
-router.alias({
-  '/': '/home'
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  render: h => h(App)
 })
-
-// start the router
-router.start(App, 'app')
-
 ```
 
 Let's also create an empty ProductCatalog component so we have something to route to.
@@ -79,7 +74,7 @@ export default {}
 ```
 
 No routing solution is complete without some links.
-Create a `Navbar` component that will link to our different routes.
+Create a `AppNav` component that will link to our different routes.
 
 ```html
 <!-- src/components/AppNav.vue -->
@@ -89,16 +84,22 @@ Create a `Navbar` component that will link to our different routes.
       <img src="../assets/jay.svg" alt="Jayway logo" /> Jaystore
     </a>
     <div class="nav navbar-nav">
-      <a
-        href="#"
+      <router-link
+        to="home"
         class="nav-item nav-link"
-        v-link="{ path: '/home', exact: true, activeClass: 'active' }"
-      >Home</a>
-      <a
-        href="#"
+        active-class="active"
+        exact
+      >
+        Home
+      </router-link>
+      <router-link
+        to="manage-products"
         class="nav-item nav-link"
-        v-link="{ path: '/manage-products', exact: true, activeClass: 'active' }"
-      >Manage Products</a>
+        active-class="active"
+        exact
+      >
+        Manage Products
+      </router-link>
     </div>
   </nav>
 </template>
@@ -108,23 +109,25 @@ export default {}
 </script>
 ```
 
-The [`v-link`](https://github.com/vuejs/vue-router/blob/1.0/docs/en/link.md#v-link) directive is used to link to our different routes. We also specify
-an `exact` option which means that it will only be considered active if the route
-is exactly matched and will not consider a subroute. The `activeClass` option
-only specifies the className that should be applied to the element when the route
+The [`<router-link>`](http://router.vuejs.org/en/api/router-link.html) component is used to link to our different routes. We also specify
+an `exact` attribute which means that it will only be considered active if the route
+is exactly matched and will not consider a sub-route. The `active-class` option
+only specifies the class name that should be applied to the element when the route
 is active.
 
-Add the `Navbar` to our App component.
+Add the `AppNav` to our App component.
 
 ```html
 <!-- src/App.vue -->
 <template>
-  <header class="app-header">
-    <app-nav></app-nav>
-  </header>
-  <main class="container">
-    <router-view></router-view>
-  </main>
+  <div>
+    <header class="app-header">
+      <app-nav></app-nav>
+    </header>
+    <main class="container">
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
 
 <script>
