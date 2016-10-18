@@ -115,5 +115,5 @@ That's it! Now you can create and update products!
    should be changed a [ternary expression](http://vuejs.org/guide/syntax.html#JavaScript-Expressions) is probably more suitable.
  * Add client-side validation
 
- **HINT!** Create a `validate()` method that populates some internal `formError` state if there is  an error and call this method from the `onSubmit` handler before emitting a `submit` event. Also use [`$watch`](http://vuejs.org/api/#watch) to watch the `product.id` in one of the [lifecycle methods](https://vuejs.org/guide/instance.html#Instance-Lifecycle)
+ **HINT!** Create a `validate()` method that populates some internal `formError` state if there is  an error and call this method from the `onSubmit` handler before emitting a `submit` event. Also use [`$watch`](http://vuejs.org/api/#watch) to watch the `product.id` in one of the [lifecycle methods](https://vuejs.org/guide/instance.html#Instance-Lifecycle-Hooks)
    and reset the `formErrors` when it changes.
