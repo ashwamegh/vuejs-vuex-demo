@@ -111,7 +111,7 @@ export default {}
 
 The [`<router-link>`](http://router.vuejs.org/en/api/router-link.html) component is used to link to our different routes. We also specify
 an `exact` attribute which means that it will only be considered active if the route
-is exactly matched and will not consider a sub-route. The `active-class` option
+is exactly matched and will not consider a sub-route. The `active-class` attribute
 only specifies the class name that should be applied to the element when the route
 is active.
 

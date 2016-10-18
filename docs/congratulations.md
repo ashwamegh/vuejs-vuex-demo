@@ -16,4 +16,4 @@ You have now completed the Vue.js workshop. Hopefully you now have some understa
  * Serve the app from a backend server with the initial state already injected so that the browser doesn't have to make an additional request to fetch the data.
  * Add filtering and sorting to the `ProductList`
 
-   **HINT!** Use some of the build in filters or use a [custom filter](https://vuejs.org/guide/custom-filter.html)
+   **HINT!** Use a computed property that returns a filtered and sorted list.

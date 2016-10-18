@@ -68,7 +68,7 @@ as well.
 <!-- src/components/ManageProducts.vue -->
 <script>
 ...
-import guid from 'guid';
+import uuid from 'uuid';
 
 export default {
   ...
@@ -112,7 +112,7 @@ That's it! Now you can create and update products!
  * Change the save button label to say either "Add product" or "Update product".
 
    **HINT!** You could use the `v-if` directive here as well but since it's just a simple string that
-   should be changed a [ternary expression](http://vuejs.org/guide/syntax.html#JavaScript-Expressions) is probably more suitable.
+   should be changed a [ternary expression](http://vuejs.org/guide/syntax.html#Using-JavaScript-Expressions) is probably more suitable.
  * Add client-side validation
 
  **HINT!** Create a `validate()` method that populates some internal `formError` state if there is  an error and call this method from the `onSubmit` handler before emitting a `submit` event. Also use [`$watch`](http://vuejs.org/api/#watch) to watch the `product.id` in one of the [lifecycle methods](https://vuejs.org/guide/instance.html#Instance-Lifecycle-Hooks)
