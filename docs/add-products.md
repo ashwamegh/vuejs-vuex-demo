@@ -106,8 +106,8 @@ export default {
   },
   data: initialData,
   methods: {
-    onFormSave(product) {
-      console.log('product', JSON.stringify(product));
+    onFormSave(productData) {
+      console.log('productData', JSON.stringify(productData));
     }
   }
 }
@@ -201,11 +201,11 @@ import uuid from 'uuid';
 export default {
   ...
   methods: {
-    onFormSave() {
-      // clone the productInForm object
+    onFormSave(productData) {
+      // clone the productData object
       const product = {
         // Use the Object Spread operator to force JS to clone the object
-        ...this.productInForm
+        ...productData
       };
       // Generate an id using the third-party lib 'uuid'
       product.id = uuid.v4();

@@ -43,9 +43,9 @@ export default {
       'saveProduct',
       'deleteProduct'
     ]),
-    onFormSave() {
-      // clone the productInForm object
-      const product = { ...this.productInForm };
+    onFormSave(productData) {
+      // clone the productData object
+      const product = { ...productData };
 
       this.saveProduct(product);
 

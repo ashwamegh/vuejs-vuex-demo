@@ -73,9 +73,9 @@ import uuid from 'uuid';
 export default {
   ...
   methods: {
-    onFormSave() {
-      // clone the productInForm object
-      const product = { ...this.productInForm };
+    onFormSave(productData) {
+      // clone the productData object
+      const product = { ...productData };
 
       const index = this.products.findIndex((p) => p.id === product.id);
 
