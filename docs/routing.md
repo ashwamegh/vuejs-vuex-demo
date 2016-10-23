@@ -49,7 +49,7 @@ Let's also create an empty ProductCatalog component so we have something to rout
 ```html
 <!-- src/components/ProductCatalog.vue -->
 <template>
-  I'm a product catalog!
+  <p>I'm a product catalog!</p>
 </template>
 
 <script>
