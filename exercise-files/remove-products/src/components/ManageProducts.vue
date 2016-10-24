@@ -56,10 +56,7 @@ export default {
   },
   data: initialData,
   methods: {
-    onFormSave(productData) {
-      // clone the productData object
-      const product = { ...productData };
-
+    onFormSave(product) {
       const index = this.products.findIndex((p) => p.id === product.id);
 
       // update product if it exists or create it if it doesn't
@@ -79,7 +76,10 @@ export default {
       this.productInForm = initialData().productInForm;
     },
     onEditClicked(product) {
-      this.productInForm = product;
+      // since objects are passed by reference we need to clone the product
+      // either by using Object.assign({}, product) or by using object
+      // spread like we do here.
+      this.productInForm = { ...product };
     }
   }
 }

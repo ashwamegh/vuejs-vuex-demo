@@ -45,7 +45,7 @@ Now we need to implement our `onRemove` event handler in our `ManageProducts` co
 <!-- src/components/ManageProducts.vue -->
 <template>
   <section>
-		...
+    ...
     <product-list
       :products="products"
       v-on:edit="onEditClicked"
@@ -60,7 +60,7 @@ export default {
   ...
   methods: {
     ...
-		onRemoveClicked(product) {
+    onRemoveClicked(product) {
       const index = this.products.findIndex((p) => p.id === product.id);
 
       this.products.splice(index, 1);

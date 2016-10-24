@@ -3,7 +3,7 @@
 We already did most of the heavy lifting in the last section but we do need a way to select a
 product in the ProductList component.
 
-From the `/exercise-files/update-product` folder update the `ProductList` component.
+From the `/exercise-files/update-products` folder update the `ProductList` component.
 
 ```html
 <!-- src/components/ProductList.vue -->
@@ -54,7 +54,10 @@ export default {
   methods: {
     ...
     onEditClicked(product) {
-      this.productInForm = product;
+      // since objects are passed by reference we need to clone the product
+      // either by using Object.assign({}, product) or by using object
+      // spread like we do here.
+      this.productInForm = { ...product };
     }
   }
 }
@@ -73,10 +76,7 @@ import uuid from 'uuid';
 export default {
   ...
   methods: {
-    onFormSave(productData) {
-      // clone the productData object
-      const product = { ...productData };
-
+    onFormSave(product) {
       const index = this.products.findIndex((p) => p.id === product.id);
 
       // update product if it exists or create it if it doesn't

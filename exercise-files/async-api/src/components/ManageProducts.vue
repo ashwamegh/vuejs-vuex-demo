@@ -43,17 +43,13 @@ export default {
       'saveProduct',
       'deleteProduct'
     ]),
-    onFormSave(productData) {
-      // clone the productData object
-      const product = { ...productData };
-
+    onFormSave(product) {
       this.saveProduct(product);
 
       this.resetProductInForm();
     },
     resetProductInForm() {
       this.productInForm = initialData().productInForm;
-
     },
     onEditClicked(product) {
       this.productInForm = { ...product };
