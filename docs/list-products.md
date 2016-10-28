@@ -10,7 +10,7 @@ touch src/components/ProductList.vue
 ```
 
 **NOTE!**
-You may notice that we are creating a .vue file. You don't have to create components like this if you don't want to but it in Vue.js it's common practice to keep html, javascript and CSS, related to the component in the same file. If you wan't to know how this works in more detail check out the webpack loader [vue-loader](http://vue-loader.vuejs.org/en/index.html) which makes this possible.
+You may notice that we are creating a .vue file. You don't have to create components like this if you don't want to but it in Vue.js it's common practice to keep html, javascript and CSS, related to the component in the same file. If you want to know how this works in more detail check out the webpack loader [vue-loader](http://vue-loader.vuejs.org/en/index.html) which makes this possible.
 
 In a `.vue` file you have three top level tags, `<template>` for your html, `<script>` for your javascript and `<style>` for your stylesheets (LESS, SASS, CSS modules, are also supported by adding additional attributes).
 
