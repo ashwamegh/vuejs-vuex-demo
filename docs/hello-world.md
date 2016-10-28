@@ -1,6 +1,6 @@
 # Creating your first Vue.js project
 
-Let's start of easy with the mandatory "hello world" example.
+Let's start off easy with the mandatory "hello world" example.
 Create an `index.html` file in `exercise-files/first-app` with the following code.
 
 ```html
