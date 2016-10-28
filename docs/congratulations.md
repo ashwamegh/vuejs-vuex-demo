@@ -1,6 +1,6 @@
 # Congratulations!
 
-You have now completed the Vue.js workshop. Hopefully you now have some understanding on how and when to use the Vue.js framework and some of it's plugins. If you wan't to go the extra mile then here is a list with some additional ideas that you can implement on your own. Some of these have been implemented in the `/demo` folder if you wan't some inspiration on how you can solve these problems.
+You have now completed the Vue.js workshop. Hopefully you now have some understanding of how and when to use the Vue.js framework and some of its plugins. If you want to go the extra mile then here is a list of some additional ideas that you can implement on your own. Some of these have been implemented in the `/demo` folder if you want some inspiration on how you can solve these problems.
 
  * Add the ability to upload and display an image.
 

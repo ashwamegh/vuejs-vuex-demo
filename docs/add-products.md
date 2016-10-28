@@ -8,7 +8,7 @@ From the command-line in the `exercise-files/create-products/` folder
 touch src/components/SaveProductForm.vue
 ```
 
-Then start of with the template
+Then start off with the template
 ```html
 <!-- src/components/SaveProductForm.vue  -->
 <template>

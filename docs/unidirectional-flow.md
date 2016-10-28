@@ -10,7 +10,7 @@ The unidirectional flow design helps us with these issues and fortunately there 
 ![Unidirectional flow](https://cdn.css-tricks.com/wp-content/uploads/2016/03/redux-article-3-02.svg)
 _Image by [Brad Westfall](https://css-tricks.com/learning-react-redux/)_
 
-The state from the components is extracted and put in a single place (_the store_) which is then passed through to all the components in a _unidirectional flow_. Instead of modifying the store from within the components you only _commit_ so called _mutations_ which is then handled in the store by _mutators_. This makes it much easier to reason about state and how it changes.
+The state from the components is extracted and put in a single place (_the store_) which is then passed through to all the components in a _unidirectional flow_. Instead of modifying the store from within the components you only _commit_ so called _mutations_ which are then handled in the store by _mutators_. This makes it much easier to reason about state and how it changes.
 
 Now that you know some of the benefits of a unidirectional flow let's begin.
 
@@ -87,7 +87,7 @@ export default {
 Nothing special going on here. All we do is export an object with our state and our mutations (which we will implement later on). The reason why I use the object spread operator `{ ...object }`  to make a copy of our initialState is only to give me the possibility to reset our initialState at a later time should I want to.
 
 We use getter functions to return the state to our components. This is a convention in vuex and you don't have to do this but
-it does have it's advantages as it is an abstraction over the access of state and if we would like to change the structure of our state then we would only need to update our getters and not every component that uses it.
+it does have its advantages as it is an abstraction over the access of state and if we would like to change the structure of our state then we would only need to update our getters and not every component that uses it.
 
 Create the getters file in `src/vuex/modules/products/getters.js` that will return our products.
 
@@ -135,12 +135,12 @@ export default {
 </script>
 ```
 
-This is how we retrieve data from our store. First of import the `mapGetters()` function and then map your desired getters as computed properties to the component. The products will now be available in the component under `this.products` just as if it was defined in the components data function.
+This is how we retrieve data from our store. First off import the `mapGetters()` function and then map your desired getters as computed properties to the component. The products will now be available in the component under `this.products` just as if it were defined in the component's data function.
 
 You should be able to test it out now and see a list of products in our `ProductCatalog`.
 
 We still need to refactor our `ManageProducts` component to use the data from the store and to commit our changes instead of handling everything. We will keep some state in the `ManageProducts` component. More specifically the `productInForm` data.
-You can move this data to the store as well but then you would have to refactor the `SaveProductForm` to not use two-way binding to update our `productInForm` since modifying the stores state outside of mutators isn't allowed. This is really up to you but my point of view is that state that is isolated to a certain part of the application or component doesn't always have to be connected to the store.
+You can move this data to the store as well but then you would have to refactor the `SaveProductForm` to not use two-way binding to update our `productInForm` since modifying the store's state outside of mutators isn't allowed. This is really up to you but my point of view is that state that is isolated to a certain part of the application or component doesn't always have to be connected to the store.
 
 ```html
 <!-- src/components/ManageProducts.vue -->
