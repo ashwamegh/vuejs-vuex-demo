@@ -265,8 +265,8 @@ const mutations = {
     }
   },
 
-  [DELETE_PRODUCT] (state, productId) {
-    state.all = state.all.filter(p => p.id !== productId);
+  [DELETE_PRODUCT] (state, product) {
+    state.all = state.all.filter(p => p.id !== product.id);
   }
 }
 
