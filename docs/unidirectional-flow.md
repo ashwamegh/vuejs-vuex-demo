@@ -180,7 +180,7 @@ export default {
     },
     ...
     onRemoveClicked(product) {
-      this.deleteProduct(product);
+      this.deleteProduct(product.id);
 
       if (product.id === this.productInForm.id) {
         this.resetProductInForm();
@@ -265,8 +265,8 @@ const mutations = {
     }
   },
 
-  [DELETE_PRODUCT] (state, product) {
-    state.all = state.all.filter(p => p.id !== product.id);
+  [DELETE_PRODUCT] (state, productId) {
+    state.all = state.all.filter(p => p.id !== productId);
   }
 }
 
