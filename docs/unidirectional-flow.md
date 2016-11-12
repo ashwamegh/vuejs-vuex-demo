@@ -180,7 +180,7 @@ export default {
     },
     ...
     onRemoveClicked(product) {
-      this.deleteProduct(product);
+      this.deleteProduct(product.id);
 
       if (product.id === this.productInForm.id) {
         this.resetProductInForm();
