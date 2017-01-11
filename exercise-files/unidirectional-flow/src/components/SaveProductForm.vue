@@ -32,7 +32,7 @@ export default {
       formErrors: {}
     }
   },
-  ready() {
+  created() {
     this.$watch('product.id', () => {
       this.formErrors = {};
     })
