@@ -15,7 +15,7 @@ component.
     <tbody>
       <tr v-for="product in products" track-by="id" v-on:click.prevent="onEdit">
         ...
-        <td><a href="#" v-on:click.prevent.stop="onRemove(product)">remove</a></td>
+        <td><a href="#" v-on:click.prevent.stop="onRemove(product.id)">remove</a></td>
       </tr>
     </tbody>
   </table>
@@ -26,8 +26,8 @@ export default {
   props: ['products'],
   methods: {
     ...
-    onRemove(product) {
-      this.$emit('remove', product)
+    onRemove(productId) {
+      this.$emit('remove', productId)
     }
   }
 }
@@ -60,12 +60,12 @@ export default {
   ...
   methods: {
     ...
-    onRemoveClicked(product) {
-      const index = this.products.findIndex((p) => p.id === product.id);
+    onRemoveClicked(productId) {
+      const index = this.products.findIndex((p) => p.id === productId);
 
       this.products.splice(index, 1);
 
-      if (product.id === this.productInForm.id) {
+      if (productId === this.productInForm.id) {
         this.resetProductInForm();
       }
     }

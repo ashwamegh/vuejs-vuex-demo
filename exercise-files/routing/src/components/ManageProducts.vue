@@ -84,12 +84,12 @@ export default {
       // spread like we do here.
       this.productInForm = { ...product };
     },
-    onRemoveClicked(product) {
-      const index = this.products.findIndex((p) => p.id === product.id);
+    onRemoveClicked(productId) {
+      const index = this.products.findIndex((p) => p.id === productId);
 
       this.products.splice(index, 1);
 
-      if (product.id === this.productInForm.id) {
+      if (productId === this.productInForm.id) {
         this.resetProductInForm();
       }
     }
