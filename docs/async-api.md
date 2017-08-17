@@ -181,9 +181,9 @@ export default {
       this.saveProduct(product).then(() => this.resetProductInForm());
     },
     ...
-    onRemoveClicked(product) {
-      this.deleteProduct(product).then(() => {
-        if (product.id === this.productInForm.id) {
+    onRemoveClicked(productId) {
+      this.deleteProduct(productId).then(() => {
+        if (productId === this.productInForm.id) {
           this.resetProductInForm();
         }
       });
