@@ -1,4 +1,4 @@
-import { http } from 'vue'
+import Vue from 'vue'
 
 import {
   FETCH_PRODUCT,
@@ -9,40 +9,39 @@ import {
 } from './mutation-types'
 
 export function fetchProduct ({ commit }, productId) {
-  return http.get(`products/${productId}`)
+  return Vue.http.get(`products/${productId}`)
     .then((response) => commit(FETCH_PRODUCT, response.body.data))
 }
 
 export function fetchProducts ({ commit }) {
-  return http.get('products/')
+  return Vue.http.get('products/')
     .then((response) => commit(FETCH_PRODUCTS, response.body.data))
 }
 
-export function createProduct({ commit }, { product, image }) {
-  return http.post('products', product)
+export function createProduct ({ commit }, { product, image }) {
+  return Vue.http.post('products', product)
     .then((response) => {
       commit(CREATE_PRODUCT, response.body.data)
       return response.body.data.id
     })
     // Only upload image if an image has been defined
     .then((productId) => image && uploadProductImage({ commit }, image, productId))
-
 }
 
 export function updateProduct ({ commit }, { product, image }) {
-  return http.put(`products/${product.id}`, product)
+  return Vue.http.put(`products/${product.id}`, product)
     .then((response) => commit(UPDATE_PRODUCT, response.body.data))
     // Only upload image if an image has been defined
     .then((productId) => image && uploadProductImage({ commit }, image, product.id))
 }
 
 export function deleteProduct ({ commit }, productId) {
-  return http.delete(`products/${productId}`)
+  return Vue.http.delete(`products/${productId}`)
     .then((response) => commit(DELETE_PRODUCT, productId))
 }
 
-export function saveProduct({ commit, state }, { product, image }) {
-  const index = state.all.findIndex((p) => p.id === product.id);
+export function saveProduct ({ commit, state }, { product, image }) {
+  const index = state.all.findIndex((p) => p.id === product.id)
 
   // update product if it exists or create it if it doesn't
   if (index !== -1) {
@@ -59,7 +58,7 @@ function uploadProductImage ({ commit }, image, productId) {
   formData.append('product_image', image)
 
   // Upload (PUT) the product image before resolving the response
-  return http.put('products/upload', formData)
+  return Vue.http.put('products/upload', formData)
     .then((response) => response.body.data)
     // Since the server has associated the product with the image
     // we now need to refresh (GET) the product data to get this information

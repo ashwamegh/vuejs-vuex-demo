@@ -4,7 +4,7 @@
       <tr>
         <th class="product-image-col"></th>
         <th class="product-name-col">Name</th>
-        <th class="hidden-sm-down">Description</th>
+        <th class="product-desc-col">Description</th>
         <th class="product-price-col">Price</th>
         <th class="product-delete-col"></th>
       </tr>
@@ -16,7 +16,7 @@
           <img v-else src="../assets/product_placeholder.svg" alt="Product image" class="product-image">
         </td>
         <td>{{product.name}}</td>
-        <td class="hidden-sm-down">{{product.description}}</td>
+        <td class="product-desc-col">{{product.description}}</td>
         <td>{{product.price}}:-</td>
         <td><a href="#" v-on:click.prevent.stop="onRemove(product.id)">remove</a></td>
       </tr>
@@ -33,10 +33,10 @@
 export default {
   props: ['products'],
   methods: {
-    onEdit(product) {
+    onEdit (product) {
       this.$emit('edit', product)
     },
-    onRemove(productId) {
+    onRemove (productId) {
       this.$emit('remove', productId)
     }
   }

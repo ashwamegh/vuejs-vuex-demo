@@ -13,5 +13,5 @@ export default new Vuex.Store({
     products,
     cart
   },
-  strict: debug,
+  strict: debug
 })

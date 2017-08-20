@@ -36,7 +36,7 @@
 <script>
 export default {
   props: ['product'],
-  data() {
+  data () {
     return {
       formErrors: {},
       selectedFile: undefined,
@@ -44,15 +44,15 @@ export default {
     }
   },
   watch: {
-    ['product.id']() {
-      this.formErrors = {};
+    'product.id' () {
+      this.formErrors = {}
       this.selectedFile = undefined
       this.selectedFileName = this.product.imageName
     }
   },
   methods: {
-    validateForm() {
-      const errors = {};
+    validateForm () {
+      const errors = {}
 
       if (!this.product.name) {
         errors.name = 'Name is required'
@@ -62,22 +62,22 @@ export default {
         errors.price = 'Price is required'
       }
 
-      this.formErrors = errors;
+      this.formErrors = errors
 
-      return Object.keys(errors).length === 0 ;
+      return Object.keys(errors).length === 0
     },
-    onCancel() {
+    onCancel () {
       this.formErrors = {}
 
-      this.$emit('cancel');
+      this.$emit('cancel')
     },
     onImageChanged (event) {
       this.selectedFile = event.target.files[0]
       this.selectedFileName = event.target.files[0].name
     },
-    onSubmit() {
+    onSubmit () {
       if (this.validateForm()) {
-        this.$emit('submit', this.product, this.selectedFile);
+        this.$emit('submit', this.product, this.selectedFile)
       }
     }
   }

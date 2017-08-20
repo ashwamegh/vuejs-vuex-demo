@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-full navbar-light navbar-jw">
+  <nav class="navbar navbar-expand-sm navbar-light navbar-jw">
     <button
-      class="navbar-toggler hidden-sm-up pull-xs-right"
+      class="navbar-toggler"
       type="button"
       data-toggle="collapse"
       data-target="#appnav"
@@ -9,14 +9,14 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      &#9776;
+      <span class="navbar-toggler-icon"></span>
     </button>
 
     <a class="navbar-brand" href="#">
       <img src="../assets/jay.svg" alt="Jayway logo" /> Jaystore
     </a>
 
-    <div class="collapse navbar-toggleable-xs" id="appnav">
+    <div class="collapse navbar-collapse" id="appnav">
       <div class="nav navbar-nav">
         <router-link
           to="home"
@@ -38,7 +38,7 @@
       <div class="nav navbar-nav pull-sm-right">
         <div class="nav-item dropdown dropdown-cart">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <span v-if="totalItems" class="tag tag-pill tag-primary">{{totalItems}}</span> Shopping cart
+            <span v-if="totalItems" class="badge badge-pill badge-primary">{{totalItems}}</span> Shopping cart
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <shopping-cart></shopping-cart>

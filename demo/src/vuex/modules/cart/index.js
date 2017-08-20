@@ -27,12 +27,12 @@ const mutations = {
     }
   },
   [REMOVE_FROM_CART] (state, productId) {
-    state.products = state.products.filter(p => p.id !== productId);
+    state.products = state.products.filter(p => p.id !== productId)
   },
   [SUBTRACT_FROM_CART] (state, productId) {
     const record = state.products.find(p => p.id === productId)
     if (record && record.quantity === 1) {
-      state.products = state.products.filter(p => p.id !== productId);
+      state.products = state.products.filter(p => p.id !== productId)
     } else if (record) {
       record.quantity--
     }

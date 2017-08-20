@@ -32,7 +32,13 @@
   }
 
   .product-delete-col {
-    width: 80px;
+    width: 84px;
     text-align: right;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .product-desc-col {
+    display: none;
   }
 }

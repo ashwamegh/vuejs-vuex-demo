@@ -10,7 +10,7 @@
           <aside class="card-overlay">
             <button class="btn btn-outline-primary add-to-cart" @click.stop.prevent="addToCart(product)" type="button" name="button">Add to cart</button>
           </aside>
-          <div class="card-block">
+          <div class="card-body">
             <header class="product-info">
               <h1 class="title">{{product.name}}</h1>
               <span class="price">{{product.price}}:-</span>

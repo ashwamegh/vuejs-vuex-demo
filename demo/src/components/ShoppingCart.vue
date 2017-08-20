@@ -43,9 +43,9 @@ export default {
     })
   },
   methods: mapActions([
-      'addToCart',
-      'removeFromCart',
-      'subtractFromCart'
+    'addToCart',
+    'removeFromCart',
+    'subtractFromCart'
   ])
 }
 </script>
@@ -119,5 +119,11 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 20px;
+}
+
+@media (min-width: 576px) {
+  .shopping-cart {
+    min-width: 28rem;
+  }
 }
 </style>

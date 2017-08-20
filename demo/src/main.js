@@ -4,24 +4,23 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
-import store from './vuex/store';
+Vue.use(VueRouter)
+Vue.use(VueResource)
+
+Vue.config.productionTip = false
+
+import store from './vuex/store'
 
 // import components
 import App from './App'
-import ProductCatalog from './components/ProductCatalog';
-import ManageProducts from './components/ManageProducts';
+import ProductCatalog from './components/ProductCatalog'
+import ManageProducts from './components/ManageProducts'
 
 // import some global styles
 import './styles/style.scss'
 
-// import global libs
-import '../node_modules/bootstrap/dist/js/bootstrap'
-
-Vue.use(VueRouter)
-Vue.use(VueResource)
-
 // set the API root so we can use relative url's in our actions.
-Vue.http.options.root = 'http://localhost:3000';
+Vue.http.options.root = 'http://localhost:3000'
 
 const routes = [
   { path: '/home', alias: '/', component: ProductCatalog },
@@ -32,7 +31,6 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
 
 /* eslint-disable no-new */
 new Vue({
