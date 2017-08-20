@@ -20,7 +20,7 @@
 export default {
   props: ['product'],
   methods: {
-    onSubmit() {
+    onSubmit () {
       this.$emit('submit', this.product)
     }
   }
