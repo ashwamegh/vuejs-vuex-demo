@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AppNav from './components/AppNav';
+import AppNav from './components/AppNav'
 
 export default {
   components: {

@@ -15,18 +15,18 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import ProductList from './ProductList';
-import SaveProductForm from './SaveProductForm';
+import ProductList from './ProductList'
+import SaveProductForm from './SaveProductForm'
 
 const initialData = () => {
- return {
-   productInForm: {
-     id: null,
-     name: '',
-     description: '',
-     price: null
-   }
- }
+  return {
+    productInForm: {
+      id: null,
+      name: '',
+      description: '',
+      price: null
+    }
+  }
 }
 
 export default {
@@ -43,22 +43,22 @@ export default {
       'saveProduct',
       'deleteProduct'
     ]),
-    onFormSave(product) {
-      this.saveProduct(product);
+    onFormSave (product) {
+      this.saveProduct(product)
 
-      this.resetProductInForm();
+      this.resetProductInForm()
     },
-    resetProductInForm() {
-      this.productInForm = initialData().productInForm;
+    resetProductInForm () {
+      this.productInForm = initialData().productInForm
     },
-    onEditClicked(product) {
-      this.productInForm = { ...product };
+    onEditClicked (product) {
+      this.productInForm = { ...product }
     },
-    onRemoveClicked(productId) {
-      this.deleteProduct(productId);
+    onRemoveClicked (productId) {
+      this.deleteProduct(productId)
 
       if (productId === this.productInForm.id) {
-        this.resetProductInForm();
+        this.resetProductInForm()
       }
     }
   }

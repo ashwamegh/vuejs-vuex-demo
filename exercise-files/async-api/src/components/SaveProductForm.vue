@@ -27,19 +27,19 @@
 <script>
 export default {
   props: ['product'],
-  data() {
+  data () {
     return {
       formErrors: {}
     }
   },
   watch: {
-    ['product.id']() {
-      this.formErrors = {};
+    'product.id' () {
+      this.formErrors = {}
     }
   },
   methods: {
-    validateForm() {
-      const errors = {};
+    validateForm () {
+      const errors = {}
 
       if (!this.product.name) {
         errors.name = 'Name is required'
@@ -49,18 +49,18 @@ export default {
         errors.price = 'Price is required'
       }
 
-      this.formErrors = errors;
+      this.formErrors = errors
 
-      return Object.keys(errors).length === 0 ;
+      return Object.keys(errors).length === 0
     },
-    onCancel() {
+    onCancel () {
       this.formErrors = {}
 
-      this.$emit('cancel');
+      this.$emit('cancel')
     },
-    onSubmit() {
+    onSubmit () {
       if (this.validateForm()) {
-        this.$emit('submit', this.product);
+        this.$emit('submit', this.product)
       }
     }
   }

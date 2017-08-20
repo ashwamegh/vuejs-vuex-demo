@@ -3,12 +3,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import store from './vuex/store';
+import store from './vuex/store'
 
 // import components
 import App from './App'
-import ProductCatalog from './components/ProductCatalog';
-import ManageProducts from './components/ManageProducts';
+import ProductCatalog from './components/ProductCatalog'
+import ManageProducts from './components/ManageProducts'
 
 // import some global styles
 import './styles/style.scss'
@@ -24,7 +24,6 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
 
 /* eslint-disable no-new */
 new Vue({
