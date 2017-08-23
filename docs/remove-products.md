@@ -26,7 +26,7 @@ export default {
   props: ['products'],
   methods: {
     ...
-    onRemove(productId) {
+    onRemove (productId) {
       this.$emit('remove', productId)
     }
   }
@@ -60,13 +60,13 @@ export default {
   ...
   methods: {
     ...
-    onRemoveClicked(productId) {
-      const index = this.products.findIndex((p) => p.id === productId);
+    onRemoveClicked (productId) {
+      const index = this.products.findIndex((p) => p.id === productId)
 
-      this.products.splice(index, 1);
+      this.products.splice(index, 1)
 
       if (productId === this.productInForm.id) {
-        this.resetProductInForm();
+        this.resetProductInForm()
       }
     }
   }

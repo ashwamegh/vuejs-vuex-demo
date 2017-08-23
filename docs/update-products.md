@@ -22,7 +22,7 @@ From the `/exercise-files/update-products` folder update the `ProductList` compo
 export default {
   props: ['products'],
   methods: {
-    onEdit(product) {
+    onEdit (product) {
       this.$emit('edit', product)
     }
   }
@@ -53,11 +53,11 @@ export default {
   ...
   methods: {
     ...
-    onEditClicked(product) {
+    onEditClicked (product) {
       // since objects are passed by reference we need to clone the product
       // either by using Object.assign({}, product) or by using object
       // spread like we do here.
-      this.productInForm = { ...product };
+      this.productInForm = { ...product }
     }
   }
 }
@@ -71,13 +71,13 @@ as well.
 <!-- src/components/ManageProducts.vue -->
 <script>
 ...
-import uuid from 'uuid';
+import uuid from 'uuid'
 
 export default {
   ...
   methods: {
-    onFormSave(product) {
-      const index = this.products.findIndex((p) => p.id === product.id);
+    onFormSave (product) {
+      const index = this.products.findIndex((p) => p.id === product.id)
 
       // update product if it exists or create it if it doesn't
       if (index !== -1) {
@@ -86,11 +86,11 @@ export default {
         // See http://vuejs.org/guide/list.html#Caveats
         this.products.splice(index, 1, product)
       } else {
-        product.id = uuid.v4();
-        this.products.push(product);
+        product.id = uuid.v4()
+        this.products.push(product)
       }
 
-      this.resetProductInForm();
+      this.resetProductInForm ()
     },
     ...
   }

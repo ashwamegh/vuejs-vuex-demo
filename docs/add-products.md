@@ -55,8 +55,8 @@ The actual component is not very complicated.
 export default {
   props: ['product'],
   methods: {
-    onSubmit() {
-      this.$emit('submit', this.product);
+    onSubmit () {
+      this.$emit('submit', this.product)
     }
   }
 }
@@ -95,7 +95,7 @@ const initialData = () => {
       name: '',
       description: '',
       price: null
-    }  
+    }
   }
 }
 
@@ -106,8 +106,9 @@ export default {
   },
   data: initialData,
   methods: {
-    onFormSave(productData) {
-      console.log('productData', JSON.stringify(productData));
+    onFormSave (productData) {
+      // eslint-disable-next-line no-console
+      console.log('productData', JSON.stringify(productData))
     }
   }
 }
@@ -149,36 +150,36 @@ to the ProductList.
 </template>
 
 <script>
-import ProductList from './ProductList';
-import SaveProductForm from './SaveProductForm';
+import ProductList from './ProductList'
+import SaveProductForm from './SaveProductForm'
 
 const initialData = () => {
- return {
-   productInForm: {
-     ...
-   },
-   products: [
-     {
-       id: 'cc919e21-ae5b-5e1f-d023-c40ee669520c',
-       name: 'COBOL 101 vintage',
-       description: 'Learn COBOL with this vintage programming book',
-       price: 399,
-     },
-     {
-       id: 'bcd755a6-9a19-94e1-0a5d-426c0303454f',
-       name: 'Sharp C2719 curved TV',
-       description: 'Watch TV like never before with the brand new curved screen technology',
-       price: 1995,
-     },
-     {
-       id: '727026b7-7f2f-c5a0-ace9-cc227e686b8e',
-       name: 'Remmington X mechanical keyboard',
-       description: 'Excellent for gaming and typing, this Remmington X keyboard ' +
+  return {
+    productInForm: {
+      ...
+    },
+    products: [
+      {
+        id: 'cc919e21-ae5b-5e1f-d023-c40ee669520c',
+        name: 'COBOL 101 vintage',
+        description: 'Learn COBOL with this vintage programming book',
+        price: 399
+      },
+      {
+        id: 'bcd755a6-9a19-94e1-0a5d-426c0303454f',
+        name: 'Sharp C2719 curved TV',
+        description: 'Watch TV like never before with the brand new curved screen technology',
+        price: 1995
+      },
+      {
+        id: '727026b7-7f2f-c5a0-ace9-cc227e686b8e',
+        name: 'Remmington X mechanical keyboard',
+        description: 'Excellent for gaming and typing, this Remmington X keyboard ' +
          'features tactile, clicky switches for speed and accuracy',
-       price: 595,
-     }
-   ]
- }
+        price: 595
+      }
+    ]
+  }
 }
 
 export default {
@@ -196,21 +197,21 @@ Now that we have access to the product list all we need to do is push our new pr
 ```html
 <!-- src/components/ManageProducts.vue  -->
 <script>
-import uuid from 'uuid';
+import uuid from 'uuid'
 ...
 export default {
   ...
   methods: {
-    onFormSave(product) {
+    onFormSave (product) {
       // Generate an id using the third-party lib 'uuid'
-      product.id = uuid.v4();
+      product.id = uuid.v4()
       // add it to the product list
-      this.products.push(product);
+      this.products.push(product)
       // reset the form
-      this.resetProductInForm();
+      this.resetProductInForm()
     },
-    resetProductInForm() {
-      this.productInForm = initialData().productInForm;
+    resetProductInForm () {
+      this.productInForm = initialData().productInForm
     }
   }
 }

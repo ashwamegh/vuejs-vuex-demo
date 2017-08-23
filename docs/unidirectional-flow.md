@@ -46,7 +46,7 @@ Create products module `src/vuex/modules/products/index.js`.
 
 ```javascript
 // src/vuex/modules/products/index.js
-import * as getters from './getters';
+import * as getters from './getters'
 
 // initial state
 const initialState = {
@@ -55,20 +55,20 @@ const initialState = {
       id: 'cc919e21-ae5b-5e1f-d023-c40ee669520c',
       name: 'COBOL 101 vintage',
       description: 'Learn COBOL with this vintage programming book',
-      price: 399,
+      price: 399
     },
     {
       id: 'bcd755a6-9a19-94e1-0a5d-426c0303454f',
       name: 'Sharp C2719 curved TV',
       description: 'Watch TV like never before with the brand new curved screen technology',
-      price: 1995,
+      price: 1995
     },
     {
       id: '727026b7-7f2f-c5a0-ace9-cc227e686b8e',
       name: 'Remmington X mechanical keyboard',
       description: 'Excellent for gaming and typing, this Remmington X keyboard ' +
         'features tactile, clicky switches for speed and accuracy',
-      price: 595,
+      price: 595
     }
   ]
 }
@@ -100,7 +100,7 @@ Add the store to Vue in `src/main.js`.
 ```js
 // src/main.js
 ...
-import store from './vuex/store';
+import store from './vuex/store'
 
 ...
 
@@ -173,17 +173,17 @@ export default {
       'saveProduct',
       'deleteProduct'
     ]),
-    onFormSave(product) {
-      this.saveProduct(product);
+    onFormSave (product) {
+      this.saveProduct(product)
 
-      this.resetProductInForm();
+      this.resetProductInForm()
     },
     ...
-    onRemoveClicked(productId) {
-      this.deleteProduct(productId);
+    onRemoveClicked (productId) {
+      this.deleteProduct(productId)
 
       if (productId === this.productInForm.id) {
-        this.resetProductInForm();
+        this.resetProductInForm()
       }
     }
   }
@@ -195,22 +195,22 @@ As before we mapped our getter function to retrieve our products. We also mapped
 
 ```javascript
 // src/vuex/modules/products/actions.js
-import uuid from 'uuid';
+import uuid from 'uuid'
 
 import {
   DELETE_PRODUCT,
   CREATE_PRODUCT,
   UPDATE_PRODUCT
-} from './mutation-types';
+} from './mutation-types'
 
-export function saveProduct({ commit, state }, product) {
-  const index = state.all.findIndex((p) => p.id === product.id);
+export function saveProduct ({ commit, state }, product) {
+  const index = state.all.findIndex((p) => p.id === product.id)
 
   // update product if it exists or create it if it doesn't
   if (index !== -1) {
     commit(UPDATE_PRODUCT, product)
   } else {
-    product.id = uuid.v4();
+    product.id = uuid.v4()
     commit(CREATE_PRODUCT, product)
   }
 }
@@ -226,16 +226,16 @@ We then commit an event to the store that is then handled by a mutation function
 Let's define our mutation types. In `src/vuex/modules/products/mutation-types.js`.
 ```javascript
 // src/vuex/modules/products/mutation-types.js
-export const CREATE_PRODUCT = 'products/CREATE_PRODUCT';
-export const UPDATE_PRODUCT = 'products/UPDATE_PRODUCT';
-export const DELETE_PRODUCT = 'products/DELETE_PRODUCT';
+export const CREATE_PRODUCT = 'products/CREATE_PRODUCT'
+export const UPDATE_PRODUCT = 'products/UPDATE_PRODUCT'
+export const DELETE_PRODUCT = 'products/DELETE_PRODUCT'
 ```
 
 Implement the mutations. In `src/vuex/modules/products/index.js`.
 ```javascript
 // src/vuex/modules/products/index.js
-import * as actions from './actions';
-import * as getters from './getters';
+import * as actions from './actions'
+import * as getters from './getters'
 
 import {
   CREATE_PRODUCT,
@@ -251,11 +251,11 @@ const initialState = {
 // mutations
 const mutations = {
   [CREATE_PRODUCT] (state, product) {
-    state.all.push(product);
+    state.all.push(product)
   },
 
   [UPDATE_PRODUCT] (state, product) {
-    const index = state.all.findIndex((p) => p.id === product.id);
+    const index = state.all.findIndex((p) => p.id === product.id)
 
     if (index !== -1) {
       // We need to replace the array entirely so that vue can recognize
@@ -266,7 +266,7 @@ const mutations = {
   },
 
   [DELETE_PRODUCT] (state, productId) {
-    state.all = state.all.filter(p => p.id !== productId);
+    state.all = state.all.filter(p => p.id !== productId)
   }
 }
 

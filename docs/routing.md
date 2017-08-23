@@ -18,8 +18,8 @@ import App from './App'
 
 import VueRouter from 'vue-router'
 
-import ProductCatalog from './components/ProductCatalog';
-import ManageProducts from './components/ManageProducts';
+import ProductCatalog from './components/ProductCatalog'
+import ManageProducts from './components/ManageProducts'
 
 // import some global styles
 import './styles/style.scss'
@@ -79,27 +79,42 @@ Create a `AppNav` component that will link to our different routes.
 ```html
 <!-- src/components/AppNav.vue -->
 <template>
-  <nav class="navbar navbar-full navbar-light navbar-jw">
+  <nav class="navbar navbar-expand-sm navbar-light navbar-jw">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#appnav"
+      aria-controls="appnav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
     <a class="navbar-brand" href="#">
       <img src="../assets/jay.svg" alt="Jayway logo" /> Jaystore
     </a>
-    <div class="nav navbar-nav">
-      <router-link
-        to="home"
-        class="nav-item nav-link"
-        active-class="active"
-        exact
-      >
-        Home
-      </router-link>
-      <router-link
-        to="manage-products"
-        class="nav-item nav-link"
-        active-class="active"
-        exact
-      >
-        Manage Products
-      </router-link>
+
+    <div class="collapse navbar-collapse" id="appnav">
+      <div class="nav navbar-nav">
+        <router-link
+          to="home"
+          class="nav-item nav-link"
+          active-class="active"
+          exact
+        >
+          Home
+        </router-link>
+        <router-link
+          to="manage-products"
+          class="nav-item nav-link"
+          active-class="active"
+          exact
+        >
+          Manage Products
+        </router-link>
+      </div>
     </div>
   </nav>
 </template>
@@ -131,7 +146,7 @@ Add the `AppNav` to our App component.
 </template>
 
 <script>
-import AppNav from './components/AppNav';
+import AppNav from './components/AppNav'
 
 export default {
   components: {

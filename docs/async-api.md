@@ -40,13 +40,13 @@ Add vue-resource as middleware to Vue.
 // src/main.js
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource';
+import VueResource from 'vue-resource'
 ...
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
 // set the API root so we can use relative url's in our actions.
-Vue.http.options.root = 'http://localhost:3000';
+Vue.http.options.root = 'http://localhost:3000'
 ...
 ```
 
@@ -55,17 +55,17 @@ We are going to start by fetching products. Implement a fetch products action.
 // src/vuex/modules/products/actions.js
 
 // import the http module that has been added by vue-resource
-import { http } from 'vue'
+import Vue from 'vue'
 
 import {
   FETCH_PRODUCTS,
   DELETE_PRODUCT,
   CREATE_PRODUCT,
   UPDATE_PRODUCT
-} from './mutation-types';
+} from './mutation-types'
 
 export function fetchProducts ({ commit }) {
-  return http.get('products/')
+  return Vue.http.get('products/')
     .then((response) => commit(FETCH_PRODUCTS, response.body.data))
 }
 
@@ -79,7 +79,7 @@ When the promise resolves we commit an event to the store with the response data
 Add a mutation type.
 ```javascript
 // src/vuex/modules/products/mutation-types.js
-export const FETCH_PRODUCTS = 'products/FETCH_PRODUCTS';
+export const FETCH_PRODUCTS = 'products/FETCH_PRODUCTS'
 ...
 ```
 
@@ -137,23 +137,23 @@ Implement the remaining actions.
 // src/vuex/modules/products/actions.js
 ...
 
-export function createProduct({ commit }, product) {
-  return http.post('products', product)
+export function createProduct ({ commit }, product) {
+  return Vue.http.post('products', product)
     .then((response) => commit(CREATE_PRODUCT, response.body.data))
 }
 
 export function updateProduct ({ commit }, product) {
-  return http.put(`products/${product.id}`, product)
+  return Vue.http.put(`products/${product.id}`, product)
     .then((response) => commit(UPDATE_PRODUCT, response.body.data))
 }
 
 export function deleteProduct ({ commit }, productId) {
-  return http.delete(`products/${productId}`)
+  return Vue.http.delete(`products/${productId}`)
     .then((response) => commit(DELETE_PRODUCT, productId))
 }
 
-export function saveProduct({ commit, state }, product) {
-  const index = state.all.findIndex((p) => p.id === product.id);
+export function saveProduct ({ commit, state }, product) {
+  const index = state.all.findIndex((p) => p.id === product.id)
 
   // update product if it exists or create it if it doesn't
   if (index !== -1) {
@@ -177,16 +177,16 @@ export default {
   ...
   methods: {
     ...
-    onFormSave(product) {
-      this.saveProduct(product).then(() => this.resetProductInForm());
+    onFormSave (product) {
+      this.saveProduct(product).then(() => this.resetProductInForm())
     },
     ...
-    onRemoveClicked(productId) {
+    onRemoveClicked (productId) {
       this.deleteProduct(productId).then(() => {
         if (productId === this.productInForm.id) {
-          this.resetProductInForm();
+          this.resetProductInForm()
         }
-      });
+      })
     }
   }
 }
