@@ -5,8 +5,8 @@ import App from './App'
 
 import VueRouter from 'vue-router'
 
-import ProductCatalog from './components/ProductCatalog';
-import ManageProducts from './components/ManageProducts';
+import ProductCatalog from './components/ProductCatalog'
+import ManageProducts from './components/ManageProducts'
 
 // import some global styles
 import './styles/style.scss'
@@ -22,7 +22,6 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
 
 /* eslint-disable no-new */
 new Vue({
