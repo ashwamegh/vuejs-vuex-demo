@@ -1,10 +1,13 @@
 {
   "gitbook": "3.x.x",
 	"title": "Jayway Vue.js workshop",
-  "plugins": ["prism", "-highlight", "github"],
+  "plugins": ["prism", "-highlight", "github", "ga"],
 	"pluginsConfig": {
 		"github": {
 			"url": "https://github.com/jayway/vue-js-workshop"
+		},
+		"ga": {
+				"token": "UA-105153875-1"
 		}
 	},
 	"theme-default": {
