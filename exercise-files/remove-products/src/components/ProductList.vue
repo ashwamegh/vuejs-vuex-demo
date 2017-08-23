@@ -21,7 +21,7 @@
 export default {
   props: ['products'],
   methods: {
-    onEdit(product) {
+    onEdit (product) {
       this.$emit('edit', product)
     }
   }
