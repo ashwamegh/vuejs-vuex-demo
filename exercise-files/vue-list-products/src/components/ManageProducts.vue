@@ -3,13 +3,16 @@
     <save-product-form
       :product="productInForm"
       v-on:submit="onFormSave"
+      v-on:cancel="onCancelUpdate"
     ></save-product-form>
     <product-list 
       :products="products"
+      v-on:edit="onEditClicked"
     ></product-list>
   </section>
 </template>
 <script>
+/* eslint-disable */
 
 import ProductList from './ProductList'
 import SaveProductForm from './SaveProductForm'
@@ -54,18 +57,31 @@ export default {
   },
   data: initialData,
   methods: {
-    onFormSave (productData) {
+    onFormSave (product) {
       // eslint-disable-next-line no-console
-      console.log('productData', JSON.stringify(productData))
-    // Generate an id using the third-party lib 'uuid'
-      productData.id = uuid.v4()
-      // add it to the product list
-      this.products.push(productData)
-      // reset the form
+      const index = this.products.findIndex((p) => p.id === product.id)
+
+    if (index !== -1) {
+      // We need to replace the array entirely so that vue can recognize
+        // the change and re-render entirely.
+        // See http://vuejs.org/guide/list.html#Caveats
+        console.log('productData', JSON.stringify(product))
+        this.products.splice(index, 1, product)
+      } else {
+        product.id = uuid.v4()
+        console.log('productData', JSON.stringify(product))
+        this.products.push(product)
+      }
       this.resetProductInForm()
     },
     resetProductInForm () {
       this.productInForm = initialData().productInForm
+    },
+    onEditClicked (product) {
+      this.productInForm = {...product}
+    },
+    onCancelUpdate (){
+      this.resetProductInForm()
     }
   }
 }
