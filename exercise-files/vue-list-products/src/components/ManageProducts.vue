@@ -8,6 +8,7 @@
     <product-list 
       :products="products"
       v-on:edit="onEditClicked"
+      v-on:remove="onRemoveClicked"
     ></product-list>
   </section>
 </template>
@@ -82,6 +83,15 @@ export default {
     },
     onCancelUpdate (){
       this.resetProductInForm()
+    },
+    onRemoveClicked (productId) {
+      const index = this.products.findIndex((p) => p.id === productId)
+
+      this.products.splice(index, 1)
+
+      if (productId === this.productInForm.id) {
+        this.resetProductInForm()
+      }
     }
   }
 }

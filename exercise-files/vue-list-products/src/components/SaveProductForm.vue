@@ -13,6 +13,9 @@
       <label for="price">Price</label>
       <input type="number" v-model="product.price" class="form-control" id="price" placeholder="Enter Price" number>
     </div>
+    <div class="form-group" v-if="formError">
+      <p class="form-error">description should be more than 20 words.</p>
+    </div>
     <button type="submit" v-on:click.prevent="onSubmit" class="btn btn-primary">
       {{ product.id ? 'Update Product' : 'Add Product' }}
     </button>
@@ -23,8 +26,28 @@
 <script>
 export default {
   props: ['product'],
+  data () {
+    return {
+      formError: false,
+    }
+  },
+  watch: {
+      product: function (val){
+        if(val.description.length >= 20){
+          this.formError = false
+        }
+      }
+  },
   methods: {
+    validate (product) {
+      if(product.description.length < 20){
+        this.formError = true
+        return false
+      }
+      return true
+    },
     onSubmit () {
+      if(this.validate(this.product))
       this.$emit('submit', this.product)
     },
     onCancel () {
