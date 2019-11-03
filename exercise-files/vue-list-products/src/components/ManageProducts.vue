@@ -45,22 +45,7 @@ export default {
       'deleteProduct'
     ]),
     onFormSave (product) {
-      // eslint-disable-next-line no-console
-    //   const index = this.products.findIndex((p) => p.id === product.id)
-
-    // if (index !== -1) {
-    //   // We need to replace the array entirely so that vue can recognize
-    //     // the change and re-render entirely.
-    //     // See http://vuejs.org/guide/list.html#Caveats
-    //     console.log('productData', JSON.stringify(product))
-    //     this.products.splice(index, 1, product)
-    //   } else {
-    //     product.id = uuid.v4()
-    //     console.log('productData', JSON.stringify(product))
-    //     this.products.push(product)
-    //   }
-      this.saveProduct(product)
-      this.resetProductInForm()
+      this.saveProduct(product).then(() => this.resetProductInForm())
     },
     resetProductInForm () {
       this.productInForm = initialData().productInForm
@@ -72,14 +57,11 @@ export default {
       this.resetProductInForm()
     },
     onRemoveClicked (productId) {
-      // const index = this.products.findIndex((p) => p.id === productId)
-
-      // this.products.splice(index, 1)
-      this.deleteProduct(productId)
-
-      if (productId === this.productInForm.id) {
-        this.resetProductInForm()
-      }
+      this.deleteProduct(productId).then(() => {
+        if (productId === this.productInForm.id) {
+          this.resetProductInForm()
+        }
+      })
     }
   }
 }
