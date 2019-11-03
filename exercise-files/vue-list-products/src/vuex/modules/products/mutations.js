@@ -1,6 +1,10 @@
-import { CREATE_PRODUCT, UPDATE_PRODUCT, DELETE_PRODUCT } from './types';
+import { CREATE_PRODUCT, UPDATE_PRODUCT, DELETE_PRODUCT, FETCH_PRODUCTS } from './types';
 
 export default {
+  [FETCH_PRODUCTS] (state, products) {
+    state.all = products
+  },
+
   [CREATE_PRODUCT] (state, product) {
     state.all.push(product)
   },
